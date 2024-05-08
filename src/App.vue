@@ -2,13 +2,15 @@
 import {RouterLink, RouterView} from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 import {useUserStore} from "@/stores/user";
-import {onMounted, ref} from "vue";
+import {computed, onMounted} from "vue";
 import {getUserId} from "@/api/user";
 
 const userStore = useUserStore();
 
 const {fetchData} = userStore;
-let statusUserId:number = ref(null)
+const statusUserId = computed(() =>
+  userStore?.stateInfo?.userId?.responseStatus
+)
 
 onMounted(async () => {
   await fetchData({
@@ -16,7 +18,6 @@ onMounted(async () => {
     model: "userId",
     payload: "sss"
   }, userStore)
-  statusUserId = userStore?.stateInfo?.userId?.responseStatus
 })
 </script>
 
