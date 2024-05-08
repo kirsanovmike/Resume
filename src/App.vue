@@ -1,15 +1,34 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+<script lang="ts" setup>
+import {RouterLink, RouterView} from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import {useUserStore} from "@/stores/user";
+import {onMounted, ref} from "vue";
+import {getUserId} from "@/api/user";
+
+const userStore = useUserStore();
+
+const {fetchData} = userStore;
+let statusUserId:number = ref(null)
+
+onMounted(async () => {
+  await fetchData({
+    method: getUserId,
+    model: "userId",
+    payload: "sss"
+  }, userStore)
+  statusUserId = userStore?.stateInfo?.userId?.responseStatus
+})
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+    <img alt="Vue logo" class="logo" height="125" src="@/assets/logo.svg" width="125"/>
 
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
+      <HelloWorld msg="You did it!"/>
+      <h1>
+        {{ statusUserId }}
+      </h1>
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
@@ -17,7 +36,7 @@ import HelloWorld from './components/HelloWorld.vue'
     </div>
   </header>
 
-  <RouterView />
+  <RouterView/>
 </template>
 
 <style scoped>
