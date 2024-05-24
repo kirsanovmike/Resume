@@ -1,10 +1,31 @@
+<template>
+  <header>
+    <img alt="Vue logo" class="logo" height="125" src="@/assets/logo.svg" width="125"/>
+
+    <div class="wrapper">
+      <HelloWorld msg="You did it!"/>
+      <v-btn color="info" @click="switchTheme">
+
+      </v-btn>
+      <nav>
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/about">About</RouterLink>
+      </nav>
+    </div>
+  </header>
+
+  <RouterView/>
+</template>
+
 <script lang="ts" setup>
 import {RouterLink, RouterView} from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 import {useUserStore} from "@/stores/user";
 import {computed, onMounted} from "vue";
 import {getUserId} from "@/api/user";
+import {useTheme} from "vuetify";
 
+const theme = useTheme();
 const userStore = useUserStore();
 
 const {fetchData} = userStore;
@@ -19,26 +40,12 @@ onMounted(async () => {
     payload: "sss"
   }, userStore)
 })
+
+const switchTheme = () => {
+  console.log({theme})
+  theme.global.name.value = theme.global.current.value.dark ? "light" : "dark";
+};
 </script>
-
-<template>
-  <header>
-    <img alt="Vue logo" class="logo" height="125" src="@/assets/logo.svg" width="125"/>
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!"/>
-      <h1>
-        {{ statusUserId }}
-      </h1>
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView/>
-</template>
 
 <style scoped>
 header {
