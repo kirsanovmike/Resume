@@ -1,25 +1,30 @@
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" height="125" src="@/assets/logo.svg" width="125"/>
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!"/>
-      <v-btn color="info" @click="switchTheme">
-
-      </v-btn>
+  <v-app style="background-color: #2C2735;">
+    <v-app-bar style="background-color: #2C2735;">
+      <v-container>
+        <a href="#"> меню </a>
+        <a href="#"> ссылка </a>
+      </v-container>
+    </v-app-bar>
+    <v-app-bar style="background-color: #302A3B;">
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <v-container>
+          <a href="#"> ссылка </a>
+          <a href="#"> ссылка </a>
+          <a href="#"> ссылка </a>
+          <a href="#"> ссылка </a>
+          <v-btn color="info" @click="switchTheme">Кнопка смены темы</v-btn>
+        </v-container>
       </nav>
-    </div>
-  </header>
-
-  <RouterView/>
+    </v-app-bar>
+    <v-main>
+      <RouterView />
+    </v-main>
+  </v-app>
 </template>
 
 <script lang="ts" setup>
 import {RouterLink, RouterView} from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
 import {useUserStore} from "@/stores/user";
 import {computed, onMounted} from "vue";
 import {getUserId} from "@/api/user";
