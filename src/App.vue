@@ -9,6 +9,8 @@
     <v-app-bar style="background-color: #302A3B;">
       <nav>
         <v-container>
+          <font-awesome-icon :icon="['fab', 'linkedin']" />
+          <font-awesome-icon :icon="['fas', 'download']" />
           <a href="#"> ссылка </a>
           <a href="#"> ссылка </a>
           <a href="#"> ссылка </a>
@@ -24,6 +26,7 @@
 </template>
 
 <script lang="ts" setup>
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {RouterLink, RouterView} from 'vue-router'
 import {useUserStore} from "@/stores/user";
 import {computed, onMounted} from "vue";
