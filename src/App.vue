@@ -1,23 +1,54 @@
 <template>
-  <v-app style="background-color: #2C2735;">
-    <v-app-bar style="background-color: #2C2735;">
-      <v-container>
-        <a href="#"> меню </a>
-        <a href="#"> ссылка </a>
+  <v-app>
+    <!-- Системный навбар -->
+    <v-container fluid class="pt-2 pb-2">
+      <v-row>
+        <v-spacer />
+        <v-col cols="10" class="d-flex justify-end align-center">
+          <!-- Скачать резюме -->
+          <div class="d-flex align-center ml-8">
+            <font-awesome-icon :icon="['fas', 'chevron-down']" class="text-info"  />
+            <span class="font--callout-2 ml-1 text-info">Download CV</span>
+          </div>
+          <!-- Смена языка -->
+          <div class="d-flex align-center ml-8">
+            <font-awesome-icon :icon="['fas', 'chevron-down']" class="text-info" />
+            <span class="font--callout-2 ml-1 text-info">English</span>
+          </div>
+          <!-- Смена темы -->
+          <font-awesome-icon
+            :icon="['fas', 'circle-half-stroke']"
+            class="ml-8 text-info"
+            @click="switchTheme"
+          />
+        </v-col>
+        <v-spacer />
+      </v-row>
+    </v-container>
+    <v-container>
+    </v-container>
+    <!-- Системный навбар -->
+    <v-app-bar
+      class="mt-10"
+      style="background-color: #302A3B;"
+      elevation="0"
+      absolute="true"
+    >
+      <v-container fluid>
+        <v-row>
+          <v-spacer />
+          <v-col cols="10">
+            <nav-item
+              v-for="link in links"
+              :key="link.id"
+              class="font--label mr-8 text-info"
+            >
+              {{ link.text  }}
+            </nav-item>
+          </v-col>
+          <v-spacer />
+        </v-row>
       </v-container>
-    </v-app-bar>
-    <v-app-bar style="background-color: #302A3B;">
-      <nav>
-        <v-container>
-          <font-awesome-icon :icon="['fab', 'linkedin']" />
-          <font-awesome-icon :icon="['fas', 'download']" />
-          <a href="#"> ссылка </a>
-          <a href="#"> ссылка </a>
-          <a href="#"> ссылка </a>
-          <a href="#"> ссылка </a>
-          <v-btn color="info" @click="switchTheme">Кнопка смены темы</v-btn>
-        </v-container>
-      </nav>
     </v-app-bar>
     <v-main>
       <RouterView />
@@ -26,6 +57,7 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {RouterLink, RouterView} from 'vue-router'
 import {useUserStore} from "@/stores/user";
@@ -53,68 +85,33 @@ const switchTheme = () => {
   console.log({theme})
   theme.global.name.value = theme.global.current.value.dark ? "light" : "dark";
 };
+
+const links = ref([
+  {
+    id: 0,
+    text: "About",
+    href: "#"
+  },
+  {
+    id: 1,
+    text: "Skills",
+    href: "#"
+  },
+  {
+    id: 2,
+    text: "Experience",
+    href: "#"
+  },
+  {
+    id: 3,
+    text: "Projects",
+    href: "#"
+  },
+  {
+    id: 4,
+    text: "Contacts",
+    href: "#"
+  },
+])
+
 </script>
-
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
-</style>

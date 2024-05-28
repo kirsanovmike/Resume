@@ -3,3 +3,44 @@ body {
   font-weight: 400;
   font-style: normal;
 }
+
+.font--large-title {
+  font-weight: 900 !important;
+  font-size: 48px;
+}
+
+.font--title-1 {
+  font-weight: 900 !important;
+  font-size: 40px;
+}
+
+.font--title-2 {
+  font-weight: 400 !important;
+  font-size: 32px;
+}
+
+.font--title-3 {
+  font-weight: 700 !important;
+  font-size: 22px;
+}
+
+.font--text {
+  font-weight: 400 !important;
+  font-size: 22px;
+}
+
+.font--callout-2 {
+  font-weight: 700 !important;
+  font-size: 16px;
+}
+
+.font--label {
+  font-weight: 900 !important;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+
+.full-width {
+  width: 100%;
+}
