@@ -32,12 +32,42 @@ const darkTheme: ThemeDefinition = {
   },
 };
 
+const orangeTheme: ThemeDefinition = {
+  dark: false,
+  colors: {
+    background: "#FF6138",
+    surface: "#FF8262",
+    info: "#FFFFFF",
+    warning: "#F15E2F",
+    yellow: "#FFFFFF",
+    card: "#FF9276",
+    title: "#FFFFFF",
+    icon: "#FFFFFF",
+  },
+};
+
+const yellowTheme: ThemeDefinition = {
+  dark: false,
+  colors: {
+    background: "#FFBA48",
+    surface: "#FFC35E",
+    info: "#FFFFFF",
+    warning: "#FFFFFF",
+    yellow: "#FFFFFF",
+    card: "#FFCC77",
+    title: "#FFFFFF",
+    icon: "#FFFFFF",
+  },
+};
+
 export default createVuetify({
   theme: {
     defaultTheme: "dark",
     themes: {
       light: lightTheme,
       dark: darkTheme,
+      orange: orangeTheme,
+      yellow: yellowTheme
     },
   },
   components,

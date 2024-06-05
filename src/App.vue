@@ -29,8 +29,7 @@
     </v-container>
     <!-- Системный навбар -->
     <v-app-bar
-      class="mt-10"
-      style="background-color: #302A3B;"
+      class="mt-10 background"
       elevation="0"
       absolute="true"
     >
@@ -38,13 +37,7 @@
         <v-row>
           <v-spacer />
           <v-col cols="10">
-            <nav-item
-              v-for="link in links"
-              :key="link.id"
-              class="font--label mr-8 text-info"
-            >
-              {{ link.text  }}
-            </nav-item>
+            <nav-list :items="links" />
           </v-col>
           <v-spacer />
         </v-row>
@@ -64,6 +57,7 @@ import {useUserStore} from "@/stores/user";
 import {computed, onMounted} from "vue";
 import {getUserId} from "@/api/user";
 import {useTheme} from "vuetify";
+import NavList from "@/components/common/NavList.vue";
 
 const theme = useTheme();
 const userStore = useUserStore();
@@ -81,9 +75,12 @@ onMounted(async () => {
   }, userStore)
 })
 
+let themeCounter = ref(0);
+const themeNames = ["dark", "light", "yellow", "orange"];
+
 const switchTheme = () => {
-  console.log({theme})
-  theme.global.name.value = theme.global.current.value.dark ? "light" : "dark";
+  themeCounter.value++;
+  theme.global.name.value = themeNames[themeCounter.value % themeNames.length];
 };
 
 const links = ref([
