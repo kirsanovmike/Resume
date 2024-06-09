@@ -29,8 +29,7 @@
     </v-container>
     <!-- Системный навбар -->
     <v-app-bar
-      class="mt-10"
-      style="background-color: #302A3B;"
+      class="mt-10 background"
       elevation="0"
       absolute="true"
     >
@@ -45,6 +44,7 @@
             >
               {{ link.name[selectedLanguage] }}
             </nav-item>
+            <!-- <nav-list :items="links" /> -->
           </v-col>
           <v-spacer />
         </v-row>
@@ -65,6 +65,7 @@ import {computed, onMounted, onBeforeMount } from "vue";
 import {getUserId} from "@/api/user";
 import {useTheme} from "vuetify";
 import ChangeLanguage from "@/components/ChangeLanguage.vue";
+import NavList from "@/components/common/NavList.vue";
 
 const theme = useTheme();
 const userStore = useUserStore();
@@ -85,7 +86,6 @@ const selectedLanguage = computed({
   }
 })
 
-
 onBeforeMount(async () => {
   initDB()
   fetchData({
@@ -98,37 +98,12 @@ onBeforeMount(async () => {
   loadAbout()
 })
 
+let themeCounter = ref(0);
+const themeNames = ["dark", "light", "yellow", "orange"];
 
 const switchTheme = () => {
-  theme.global.name.value = theme.global.current.value.dark ? "light" : "dark";
+  themeCounter.value++;
+  theme.global.name.value = themeNames[themeCounter.value % themeNames.length];
 };
-
-// const links = ref([
-//   {
-//     id: 0,
-//     text: "About",
-//     href: "#"
-//   },
-//   {
-//     id: 1,
-//     text: "Skills",
-//     href: "#"
-//   },
-//   {
-//     id: 2,
-//     text: "Experience",
-//     href: "#"
-//   },
-//   {
-//     id: 3,
-//     text: "Projects",
-//     href: "#"
-//   },
-//   {
-//     id: 4,
-//     text: "Contacts",
-//     href: "#"
-//   },
-// ])
 
 </script>
