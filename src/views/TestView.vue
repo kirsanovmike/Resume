@@ -19,25 +19,11 @@
           <v-row>
             <v-spacer />
             <v-col cols="9" class="d-flex flex-wrap">
-              <v-card
+              <skill
                 v-for="skill in skills"
                 :key="skill.id"
-                max-width="180"
-                elevation="0"
-                class="mr-8 mb-8 skill-card"
-              >
-                <v-card-text>
-                  <div class="d-flex flex-column align-start">
-                    <font-awesome-icon
-                      :icon="skill.icon"
-                      class="skill-card--icon mb-6"
-                      :color="skill.iconColor"
-                    />
-                    <span class="font--title-3 mb-3">{{ skill.text }}</span>
-                    тут кружочки
-                  </div>
-                </v-card-text>
-              </v-card>
+                :skill="skill"
+              />
             </v-col>
             <v-spacer />
           </v-row>
@@ -46,44 +32,11 @@
         <!-- experience -->
         <section class="pt-10 pb-15 section-margin">
           <h2 class="font--title-1 text-center mb-14 text-info">Experience</h2>
+          <experience-panels :items="experienceItems"/>
           <h3 class="font--title-2 text-center mb-6 text-info">Education</h3>
-          <v-expansion-panels elevation="0" class="mb-15">
-            <v-expansion-panel class="mb-3">
-              <v-expansion-panel-title collapse-icon="mdi-minus" expand-icon="mdi-plus">
-                Место работы
-              </v-expansion-panel-title>
-              <v-expansion-panel-text>
-                Описание
-              </v-expansion-panel-text>
-            </v-expansion-panel>
-            <v-expansion-panel>
-              <v-expansion-panel-title collapse-icon="mdi-minus" expand-icon="mdi-plus">
-                Место работы
-              </v-expansion-panel-title>
-              <v-expansion-panel-text>
-                Описание
-              </v-expansion-panel-text>
-            </v-expansion-panel>
-          </v-expansion-panels>
+          <experience-panels :items="experienceItems"/>
           <h3 class="font--title-2 text-center mb-6 text-info">Work Experience</h3>
-          <v-expansion-panels elevation="0" class="mb-15">
-            <v-expansion-panel class="mb-3">
-              <v-expansion-panel-title collapse-icon="mdi-minus" expand-icon="mdi-plus">
-                Место работы
-              </v-expansion-panel-title>
-              <v-expansion-panel-text>
-                Описание
-              </v-expansion-panel-text>
-            </v-expansion-panel>
-            <v-expansion-panel>
-              <v-expansion-panel-title collapse-icon="mdi-minus" expand-icon="mdi-plus">
-                Место работы
-              </v-expansion-panel-title>
-              <v-expansion-panel-text>
-                Описание
-              </v-expansion-panel-text>
-            </v-expansion-panel>
-          </v-expansion-panels>
+          <experience-panels :items="experienceItems"/>
         </section>
         <!-- /experience -->
         <!-- projects -->
@@ -151,6 +104,9 @@
 <script setup>
 import { ref } from 'vue'
 import AboutInfo from "@/components/AboutInfo.vue"
+import TheWelcome from '@/components/TheWelcome.vue'
+import Skill from "@/components/Skill.vue";
+import ExperiencePanels from "@/components/common/ExperiencePanels.vue";
 
 import {useIndexStore} from "@/stores/index";
 const indexStore = useIndexStore();
@@ -161,43 +117,50 @@ const skills = ref([
     id: 0,
     text: "JavaScript",
     icon: ["fab", "js"],
-    iconColor: "#EFD81D"
+    iconColor: "#EFD81D",
+    level: 3,
   },
   {
     id: 1,
     text: "JavaScript",
     icon: ["fab", "vuejs"],
-    iconColor: "#47BA87"
+    iconColor: "#47BA87",
+    level: 2,
   },
   {
     id: 2,
     text: "HTML",
     icon: ["fab", "html5"],
-    iconColor: "#FC4F13"
+    iconColor: "#FC4F13",
+    level: 5,
   },
   {
     id: 3,
     text: "css",
     icon: ["fab", "css3-alt"],
-    iconColor: "#3C9CD6"
+    iconColor: "#3C9CD6",
+    level: 3,
   },
   {
     id: 4,
     text: "Sass",
     icon: ["fab", "sass"],
-    iconColor: "#D66FA4"
+    iconColor: "#D66FA4",
+    level: 1,
   },
   {
     id: 5,
     text: "Git",
     icon: ["fab", "git-alt"],
-    iconColor: "#E94E31"
+    iconColor: "#E94E31",
+    level: 4,
   },
   {
     id: 6,
     text: "Docker",
     icon: ["fab", "docker"],
-    iconColor: "#0895E7"
+    iconColor: "#0895E7",
+    level: 5,
   },
 
 ])
@@ -234,6 +197,30 @@ const projects = ref([
     text: "More information →"
   }
 ])
+
+const experienceItems = [
+  {
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat",
+    icon: ['fas', 'location-dot'],
+    iconPostfix: "Moscow",
+    title: "Assistant",
+    period: "2020-2021"
+  },
+  {
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat",
+    icon: ['fas', 'location-dot'],
+    iconPostfix: "Moscow",
+    title: "Assistant",
+    period: "2020-2021"
+  },
+  {
+    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat",
+    icon: ['fas', 'location-dot'],
+    iconPostfix: "Moscow",
+    title: "Assistant",
+    period: "2020-2021"
+  }
+]
 
 const contactDetails = ref([
   {
