@@ -11,10 +11,10 @@
             <span class="font--callout-2 ml-1 text-info">Download CV</span>
           </div>
           <!-- Смена языка -->
-          <div class="d-flex align-center ml-8">
-            <font-awesome-icon :icon="['fas', 'chevron-down']" class="text-info" />
-            <span class="font--callout-2 ml-1 text-info">English</span>
-          </div>
+          <change-language
+            v-model="selectedLanguage"
+            :languages="indexStore.getLanguages"
+          />
           <!-- Смена темы -->
           <font-awesome-icon
             :icon="['fas', 'circle-half-stroke']"
@@ -39,11 +39,11 @@
           <v-spacer />
           <v-col cols="10">
             <nav-item
-              v-for="link in links"
+              v-for="link in indexStore.getMenu"
               :key="link.id"
               class="font--label mr-8 text-info"
             >
-              {{ link.text  }}
+              {{ link.name[selectedLanguage] }}
             </nav-item>
           </v-col>
           <v-spacer />
@@ -58,60 +58,77 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import {RouterLink, RouterView} from 'vue-router'
+import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 import {useUserStore} from "@/stores/user";
-import {computed, onMounted} from "vue";
+import {useIndexStore} from "@/stores/index";
+import {computed, onMounted, onBeforeMount } from "vue";
 import {getUserId} from "@/api/user";
 import {useTheme} from "vuetify";
+import ChangeLanguage from "@/components/ChangeLanguage.vue";
 
 const theme = useTheme();
 const userStore = useUserStore();
+const indexStore = useIndexStore();
+const {initDB, loadMenu, loadlanguages, setSelectedLanguage, loadAbout} = indexStore;
 
 const {fetchData} = userStore;
 const statusUserId = computed(() =>
   userStore?.stateInfo?.userId?.responseStatus
 )
 
-onMounted(async () => {
-  await fetchData({
+const selectedLanguage = computed({
+  get() {
+    return indexStore.getSelectedLanguage
+  },
+  set(newValue) {
+    setSelectedLanguage(newValue)
+  }
+})
+
+
+onBeforeMount(async () => {
+  initDB()
+  fetchData({
     method: getUserId,
     model: "userId",
     payload: "sss"
   }, userStore)
+  loadMenu()
+  loadlanguages()
+  loadAbout()
 })
 
+
 const switchTheme = () => {
-  console.log({theme})
   theme.global.name.value = theme.global.current.value.dark ? "light" : "dark";
 };
 
-const links = ref([
-  {
-    id: 0,
-    text: "About",
-    href: "#"
-  },
-  {
-    id: 1,
-    text: "Skills",
-    href: "#"
-  },
-  {
-    id: 2,
-    text: "Experience",
-    href: "#"
-  },
-  {
-    id: 3,
-    text: "Projects",
-    href: "#"
-  },
-  {
-    id: 4,
-    text: "Contacts",
-    href: "#"
-  },
-])
+// const links = ref([
+//   {
+//     id: 0,
+//     text: "About",
+//     href: "#"
+//   },
+//   {
+//     id: 1,
+//     text: "Skills",
+//     href: "#"
+//   },
+//   {
+//     id: 2,
+//     text: "Experience",
+//     href: "#"
+//   },
+//   {
+//     id: 3,
+//     text: "Projects",
+//     href: "#"
+//   },
+//   {
+//     id: 4,
+//     text: "Contacts",
+//     href: "#"
+//   },
+// ])
 
 </script>

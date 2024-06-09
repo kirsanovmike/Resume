@@ -1,26 +1,14 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <v-row>
       <v-spacer />
       <v-col cols="10">
         <!-- hello -->
         <section class="pt-10 pb-15 section-margin">
-          <v-row>
-            <v-col cols="2">
-              <img
-                class="image--style-round"
-                src="@/assets/img/photo.svg"
-              >
-            </v-col>
-            <v-col cols="10" class="pl-15">
-              <h1 class="font--large-title">Hello, I am John Doe</h1>
-              <h2 class="font--title-2 font-italic mb-6">Frontend-developer</h2>
-              <p class="font--text mb-9 text-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat</p>
-              <v-btn>
-                Know me better
-              </v-btn>
-            </v-col>
-          </v-row>
+          <about-info
+            :data="indexStore.getAbout"
+            :language="indexStore.getSelectedLanguage"
+          />
         </section>
         <!-- /hello -->
         <!-- skills -->
@@ -162,6 +150,11 @@
 </template>
 <script setup>
 import { ref } from 'vue'
+import AboutInfo from "@/components/AboutInfo.vue"
+
+import {useIndexStore} from "@/stores/index";
+const indexStore = useIndexStore();
+
 
 const skills = ref([
   {
