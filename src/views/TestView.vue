@@ -2,17 +2,19 @@
   <v-container fluid>
     <v-row>
       <v-spacer />
-      <v-col cols="10">
+      <v-col v-if="indexStore.getMenu && indexStore.getMenu[0] != null" cols="10" id="parent-container">
         <!-- hello -->
-        <section class="pt-10 pb-15 section-margin">
-          <about-info
-            :data="indexStore.getAbout"
-            :language="indexStore.getSelectedLanguage"
-          />
-        </section>
+        <div :id="indexStore.getMenu[1].id">
+          <section class="pt-10 pb-15 section-margin">
+            <about-info
+              :data="indexStore.getAbout"
+              :language="indexStore.getSelectedLanguage"
+            />
+          </section>
+        </div>
         <!-- /hello -->
         <!-- skills -->
-        <section class="pt-10 pb-15 section-margin">
+        <section :id="indexStore.getMenu[0].id" class="pt-10 pb-15 section-margin">
           <h2 class="font--title-1 text-center mb-14 text-info">
             Skills
           </h2>
@@ -31,7 +33,7 @@
         <!-- /skills -->
         <!-- experience -->
         <section class="pt-10 pb-15 section-margin">
-          <h2 class="font--title-1 text-center mb-14 text-info">Experience</h2>
+          <h2 :id="indexStore.getMenu[4].id" class="font--title-1 text-center mb-14 text-info">Experience</h2>
           <experience-panels :items="experienceItems"/>
           <h3 class="font--title-2 text-center mb-6 text-info">Education</h3>
           <experience-panels :items="experienceItems"/>
@@ -40,7 +42,7 @@
         </section>
         <!-- /experience -->
         <!-- projects -->
-        <section class="pt-10 pb-15 section-margin">
+        <section :id="indexStore.getMenu[2].id" class="pt-10 pb-15 section-margin">
           <h2 class="font--title-1 text-center mb-14 text-info">Projects</h2>
           <v-row>
             <v-col
@@ -64,7 +66,7 @@
         </section>
         <!-- /projects -->
         <!-- contact -->
-        <section class="pt-10 pb-15">
+        <section :id="indexStore.getMenu[3].id" class="pt-10 pb-15">
           <v-row>
             <v-col cols="6">
               <h2 class="font--title-1 text-info">Contact Details</h2>
@@ -102,13 +104,17 @@
   </v-container>
 </template>
 <script setup>
-import { ref } from 'vue'
+import {computed, ref, watch} from 'vue'
+import { useRoute } from 'vue-router'
 import AboutInfo from "@/components/AboutInfo.vue"
 import TheWelcome from '@/components/TheWelcome.vue'
 import Skill from "@/components/Skill.vue";
 import ExperiencePanels from "@/components/common/ExperiencePanels.vue";
 
 import {useIndexStore} from "@/stores/index";
+import {useGoTo} from "vuetify";
+const goTo = useGoTo()
+const route = useRoute()
 const indexStore = useIndexStore();
 
 
@@ -204,21 +210,24 @@ const experienceItems = [
     icon: ['fas', 'location-dot'],
     iconPostfix: "Moscow",
     title: "Assistant",
-    period: "2020-2021"
+    period: "2020-2021",
+    isSelected: false
   },
   {
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat",
     icon: ['fas', 'location-dot'],
     iconPostfix: "Moscow",
     title: "Assistant",
-    period: "2020-2021"
+    period: "2020-2021",
+    isSelected: false
   },
   {
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat",
     icon: ['fas', 'location-dot'],
     iconPostfix: "Moscow",
     title: "Assistant",
-    period: "2020-2021"
+    period: "2020-2021",
+    isSelected: false
   }
 ]
 
@@ -249,6 +258,19 @@ const contactDetails = ref([
     value: "+7 (123) 456-78-90"
   },
 ])
+
+const query = computed(() => route.query);
+
+watch(query,(newValue) => {
+  if (newValue?.block != null && document.getElementById(newValue?.block)) {
+    document.getElementById(newValue?.block).scrollIntoView({
+      behavior: 'smooth'
+    });
+  }
+},
+  {
+    immediate: true
+  })
 </script>
 
 <style>

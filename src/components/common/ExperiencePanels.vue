@@ -9,14 +9,29 @@
       <v-col class="pt-0 pb-3">
         <v-expansion-panel
           :text="item.text"
-          :title="item.title"
           expand-icon="$expand"
           static
+          @group:selected="selectItem({...$event, i})"
         >
+         <template #title>
+            <div class="d-flex align-center justify-space-between" style="min-width: 100%">
+              <p class="title--text ma-0 pa-0">
+               {{ item.title }}
+              </p>
+              <font-awesome-icon
+                style="max-width: 32px; max-height: 32px;"
+                icon="plus"
+                class="skill-card--icon transition-all"
+                :class="selectedIndexes.includes(i) ? 'rotate-45' : 'rotate-0'"
+                color="title"
+              />
+            </div>
+         </template>
          <template #text>
            <div class="d-flex flex-column pt-2">
             <div class="d-flex align-center">
               <font-awesome-icon
+                style="max-width: 20px; max-height: 20px;"
                 :icon="item.icon"
                 class="skill-card--icon"
                 color="title"
@@ -38,17 +53,24 @@
 
 <script lang="ts" setup>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import {reactive} from "vue";
 
 interface ExperiencePanel {
   text: string,
   icon?: string[],
   iconPostfix?: string,
   title: string,
-  period?: string
+  period?: string,
+  selected?: boolean
 }
 
 interface Props {
   items: ExperiencePanel[]
+}
+
+interface EventOpen {
+  value: boolean,
+  i: number
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -58,10 +80,21 @@ const props = withDefaults(defineProps<Props>(), {
       icon: [],
       iconPostfix: "",
       title: "",
-      period: ""
+      period: "",
+      selected: false
     }
   ]
 })
+
+let selectedIndexes = reactive<number[]>([])
+
+const selectItem = (e:EventOpen) => {
+  if (!e.value) {
+    selectedIndexes = selectedIndexes.filter(v => v !== e.i)
+  } else {
+    selectedIndexes.push(e.i)
+  }
+}
 </script>
 
 <style lang="scss">
@@ -71,5 +104,17 @@ const props = withDefaults(defineProps<Props>(), {
 
 .v-expansion-panel .v-expansion-panel-text .v-expansion-panel-text__wrapper{
   background: rgb(var(--v-theme-surface));
+}
+
+.transition-all {
+  transition: all .3s ease-in;
+}
+
+.rotate-45 {
+  transform: rotate(45deg);
+}
+
+.rotate-0 {
+  transform: rotate(0);
 }
 </style>
