@@ -44,3 +44,20 @@ body {
 .full-width {
   width: 100%;
 }
+
+// TODO: так не работает разобраться почему. background: linear-gradient(100.07deg, var(--v-theme-yellow) 0.59%, var(--v-theme-warning) 94.37%);
+.v-btn.button {
+  &--primary {
+    background: linear-gradient(100.07deg, #FFD31F 0.59%, #F15E2F 94.37%);
+    padding: 36px;
+    border-radius: 36px;
+    box-shadow: none;
+    display: flex;
+
+    .v-btn__content {
+      color: #fff;
+      font-weight: 800;
+      font-size: 20px;
+    }
+  }
+}

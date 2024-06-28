@@ -10,7 +10,7 @@
       <h1 class="font--large-title">{{ name}}</h1>
       <h2 class="font--title-2 font-italic mb-6">{{ position }}</h2>
       <p class="font--text mb-9 text-info">{{ textAbout }}</p>
-      <v-btn>
+      <v-btn class="button--primary">
         {{ buttonText }}
       </v-btn>
     </v-col>

@@ -15,9 +15,11 @@
         <!-- /hello -->
         <!-- skills -->
         <section :id="indexStore.getMenu[0].id" class="pt-10 pb-15 section-margin">
-          <h2 class="font--title-1 text-center mb-14 text-info">
-            Skills
-          </h2>
+          <div class="d-flex justify-center">
+            <h2 class="font--title-1 text-center mb-14 text-info title--stroke">
+              Skills
+            </h2>
+          </div>
           <v-row>
             <v-spacer />
             <v-col cols="9" class="d-flex flex-wrap">
@@ -33,7 +35,9 @@
         <!-- /skills -->
         <!-- experience -->
         <section class="pt-10 pb-15 section-margin">
-          <h2 :id="indexStore.getMenu[4].id" class="font--title-1 text-center mb-14 text-info">Experience</h2>
+          <div class="d-flex justify-center">
+            <h2 :id="indexStore.getMenu[4].id" class="font--title-1 text-center mb-14 text-info title--stroke">Experience</h2>
+          </div>
           <experience-panels :items="experienceItems"/>
           <h3 class="font--title-2 text-center mb-6 text-info">Education</h3>
           <experience-panels :items="experienceItems"/>
@@ -43,7 +47,9 @@
         <!-- /experience -->
         <!-- projects -->
         <section :id="indexStore.getMenu[2].id" class="pt-10 pb-15 section-margin">
-          <h2 class="font--title-1 text-center mb-14 text-info">Projects</h2>
+          <div class="d-flex justify-center">
+            <h2 class="font--title-1 text-center mb-14 text-info title--stroke">Projects</h2>
+          </div>
           <v-row>
             <v-col
               v-for="project in projects"
@@ -69,8 +75,10 @@
         <section :id="indexStore.getMenu[3].id" class="pt-10 pb-15">
           <v-row>
             <v-col cols="6">
-              <h2 class="font--title-1 text-info">Contact Details</h2>
-              <h3 class="font--title-2 text-info">Have a project? Let me know!</h3>
+              <div class="d-flex">
+                <h2 class="font--title-1 text-info title--stroke mb-8">Contact Details</h2>
+              </div>
+              <h3 class="font--title-2 text-info mb-8">Have a project? Let me know!</h3>
               <p
                 v-for="contactDetail in contactDetails"
                 :key="contactDetail.id"
@@ -92,7 +100,7 @@
                 <v-text-field
                   label="Last name"
                 />
-                <v-btn class="mt-2" type="submit" block>Submit</v-btn>
+                <v-btn class="mt-2 button--primary" type="submit" block>Submit</v-btn>
               </v-form>
             </v-col>
           </v-row>
@@ -294,6 +302,23 @@ watch(query,(newValue) => {
 
 .project-card--img {
   max-width: 399px;
+}
+
+.title--stroke {
+  position: relative;
+  display: block;
+}
+
+.title--stroke:before {
+  content: "";
+  position: absolute;
+  top: 90%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-image: url("@/assets/img/line.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 </style>
