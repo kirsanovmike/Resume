@@ -46,7 +46,7 @@
       <v-btn
         v-scroll="onScroll"
         v-show="fab"
-        color="yellow"
+        color="info"
         icon
         style="position: fixed; bottom: 32px; right: 32px"
         @click="toTop"
@@ -54,7 +54,7 @@
         <font-awesome-icon
           style="max-width: 32px; max-height: 32px;"
           icon="chevron-up"
-          color="info"
+          color="info--text"
         />
       </v-btn>
     </v-main>

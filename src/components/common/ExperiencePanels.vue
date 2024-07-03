@@ -2,7 +2,7 @@
   <v-expansion-panels variant="accordion">
     <v-row v-for="(item, i) in items" :key="i" style="width: 100%">
       <v-col cols="2" class="pt-0 pb-3">
-        <p class="mb-0 text--title text-center align-content-center" style="height: 48px;">
+        <p class="mb-0 title--text text-center align-content-center" style="height: 48px;">
           {{ item.period }}
         </p>
       </v-col>
@@ -21,7 +21,7 @@
               <font-awesome-icon
                 style="max-width: 32px; max-height: 32px;"
                 icon="plus"
-                class="skill-card--icon transition-all"
+                class="skill-card--icon transition-all pannel-expand-icon"
                 :class="selectedIndexes.includes(i) ? 'rotate-45' : 'rotate-0'"
                 color="title"
               />
@@ -33,14 +33,13 @@
               <font-awesome-icon
                 style="max-width: 20px; max-height: 20px;"
                 :icon="item.icon"
-                class="skill-card--icon"
-                color="title"
+                class="skill-card--icon pannel-expand-icon"
               />
-              <p class="ml-2 text--title">
+              <p class="ml-2 title--text">
                 {{item.iconPostfix}}
               </p>
             </div>
-              <p class="mt-2 text--title">
+              <p class="mt-2 title--text">
                 {{item.text}}
               </p>
            </div>
@@ -98,6 +97,14 @@ const selectItem = (e:EventOpen) => {
 </script>
 
 <style lang="scss">
+.title--text {
+  color: rgb(var(--v-theme-title));
+}
+
+.pannel-expand-icon {
+  color: rgb(var(--v-theme-title));
+}
+
 .v-expansion-panel-title.v-expansion-panel-title--static {
   background: rgb(var(--v-theme-card));
 }

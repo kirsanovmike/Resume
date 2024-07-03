@@ -15,6 +15,8 @@ const lightTheme: ThemeDefinition = {
     card: "#F3F3F2",
     title: "#4B413C",
     icon: "#818181",
+    secondary: "#6B6B6B",
+    medal: "#FFD31F"
   },
 };
 
@@ -29,6 +31,8 @@ const darkTheme: ThemeDefinition = {
     card: "#393245",
     title: "#FFFFFF",
     icon: "#DCDCDC",
+    secondary: "#999999",
+    medal: "#FFD31F"
   },
 };
 
@@ -43,6 +47,8 @@ const orangeTheme: ThemeDefinition = {
     card: "#FF9276",
     title: "#FFFFFF",
     icon: "#FFFFFF",
+    secondary: "#FFFFFF",
+    medal: "#FFFFFF"
   },
 };
 
@@ -57,6 +63,8 @@ const yellowTheme: ThemeDefinition = {
     card: "#FFCC77",
     title: "#FFFFFF",
     icon: "#FFFFFF",
+    secondary: "#FFFFFF",
+    medal: "#FFFFFF"
   },
 };
 

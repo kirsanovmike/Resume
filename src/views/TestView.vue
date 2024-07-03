@@ -39,9 +39,9 @@
             <h2 :id="indexStore.getMenu[4].id" class="font--title-1 text-center mb-14 text-info title--stroke">Experience</h2>
           </div>
           <experience-panels :items="experienceItems"/>
-          <h3 class="font--title-2 text-center mb-6 text-info">Education</h3>
+          <h3 class="font--title-2 text-center mt-10 mb-6 text-info">Education</h3>
           <experience-panels :items="experienceItems"/>
-          <h3 class="font--title-2 text-center mb-6 text-info">Work Experience</h3>
+          <h3 class="font--title-2 text-center mt-10 mb-6 text-info">Work Experience</h3>
           <experience-panels :items="experienceItems"/>
         </section>
         <!-- /experience -->
@@ -54,19 +54,15 @@
             <v-col
               v-for="project in projects"
               :key="project.id"
+              class="d-flex justify-center"
               cols="4"
+              md="12"
+              lg="6"
+              xl="4"
+              sm="12"
+              xs="12"
             >
-              <v-card
-                elevation="0"
-              >
-                <v-card-text class="pa-10">
-                  <img class="project-card--img" src="@/assets/img/project.svg">
-                  <div class="project-card--content">
-                    <p class="font--title-2">{{ project.title }}</p>
-                    <p class="font--text">{{ project.text }}</p>
-                  </div>
-                </v-card-text>
-            </v-card>
+              <project-card :project="project" />
             </v-col>
           </v-row>
         </section>
@@ -121,6 +117,7 @@ import ExperiencePanels from "@/components/common/ExperiencePanels.vue";
 
 import {useIndexStore} from "@/stores/index";
 import {useGoTo} from "vuetify";
+import ProjectCard from "@/components/ProjectCard.vue";
 const goTo = useGoTo()
 const route = useRoute()
 const indexStore = useIndexStore();
@@ -183,32 +180,44 @@ const projects = ref([
   {
     id: 0,
     title: "Case 0",
-    text: "More information →"
+    text: "More information →",
+    isMedal: true,
+    description: "Многие думают, что Lorem Ipsum - взятый с потолка псевдо-латинский набор слов, но это не совсем так. Его корни уходят в один фрагмент классической латыни 45 года н.э., то есть более двух тысячелетий назад. Ричард МакКлинток, профессор латыни из колледжа Hampden-Sydney, штат Вирджиния, взял одно из самых странных слов в Lorem Ipsum Lorem Ipsum - это текст-, часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной Aldus PageMaker"
   },
   {
     id: 1,
     title: "Case 1",
-    text: "More information →"
+    text: "More information →",
+    isMedal: false,
+    description: "Многие думают, что Lorem Ipsum - взятый с потолка псевдо-латинский набор слов, но это не совсем так. Его корни уходят в один фрагмент классической латыни 45 года н.э., то есть более двух тысячелетий назад. Ричард МакКлинток, профессор латыни из колледжа Hampden-Sydney, штат Вирджиния, взял одно из самых странных слов в Lorem Ipsum Lorem Ipsum - это текст-, часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной Aldus PageMaker"
   },
   {
     id: 2,
     title: "Case 2",
-    text: "More information →"
+    text: "More information →",
+    isMedal: false,
+    description: "Многие думают, что Lorem Ipsum - взятый с потолка псевдо-латинский набор слов, но это не совсем так. Его корни уходят в один фрагмент классической латыни 45 года н.э., то есть более двух тысячелетий назад. Ричард МакКлинток, профессор латыни из колледжа Hampden-Sydney, штат Вирджиния, взял одно из самых странных слов в Lorem Ipsum Lorem Ipsum - это текст-, часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной Aldus PageMaker"
   },
   {
     id: 3,
     title: "Case 3",
-    text: "More information →"
+    text: "More information →",
+    isMedal: false,
+    description: "Многие думают, что Lorem Ipsum - взятый с потолка псевдо-латинский набор слов, но это не совсем так. Его корни уходят в один фрагмент классической латыни 45 года н.э., то есть более двух тысячелетий назад. Ричард МакКлинток, профессор латыни из колледжа Hampden-Sydney, штат Вирджиния, взял одно из самых странных слов в Lorem Ipsum Lorem Ipsum - это текст-, часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной Aldus PageMaker"
   },
   {
     id: 4,
     title: "Case 4",
-    text: "More information →"
+    text: "More information →",
+    isMedal: false,
+    description: "Многие думают, что Lorem Ipsum - взятый с потолка псевдо-латинский набор слов, но это не совсем так. Его корни уходят в один фрагмент классической латыни 45 года н.э., то есть более двух тысячелетий назад. Ричард МакКлинток, профессор латыни из колледжа Hampden-Sydney, штат Вирджиния, взял одно из самых странных слов в Lorem Ipsum Lorem Ipsum - это текст-, часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной Aldus PageMaker"
   },
   {
     id: 5,
     title: "Case 5",
-    text: "More information →"
+    text: "More information →",
+    isMedal: false,
+    description: "Многие думают, что Lorem Ipsum - взятый с потолка псевдо-латинский набор слов, но это не совсем так. Его корни уходят в один фрагмент классической латыни 45 года н.э., то есть более двух тысячелетий назад. Ричард МакКлинток, профессор латыни из колледжа Hampden-Sydney, штат Вирджиния, взял одно из самых странных слов в Lorem Ipsum Lorem Ipsum - это текст-, часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной Aldus PageMaker"
   }
 ])
 
