@@ -5,6 +5,7 @@
         style="min-width: 36px; min-height: 36px;"
         :icon="['fab', 'whatsapp']"
         color="text"
+        class="social-icon"
       />
     </a>
     <a v-if="props.links.telegram" class="social-link" target="_blank" :class="column ? 'mt-4' : 'ml-4'" rel="noreferrer noopener" :href="props.links.telegram">
@@ -12,6 +13,7 @@
         style="min-width: 36px; min-height: 36px;"
         :icon="['fab', 'telegram']"
         color="text"
+        class="social-icon"
       />
     </a>
     <a v-if="props.links.github" class="social-link" target="_blank" :class="column ? 'mt-4' : 'ml-4'" rel="noreferrer noopener" :href="props.links.github">
@@ -19,6 +21,7 @@
         style="min-width: 36px; min-height: 36px;"
         :icon="['fab', 'github']"
         color="text"
+        class="social-icon"
       />
     </a>
     <a v-if="props.links.mail" class="social-link" target="_blank" :class="column ? 'mt-4' : 'ml-4'" rel="noreferrer noopener" :href="`mailto:${props.links.mail}`">
@@ -26,6 +29,7 @@
         style="min-width: 36px; min-height: 36px;"
         :icon="['fas', 'envelope']"
         color="text"
+        class="social-icon"
       />
     </a>
     <a v-if="props.links.phone" class="social-link" target="_blank" :class="column ? 'mt-4' : 'ml-4'" rel="noreferrer noopener" :href="`tel:${props.links.phone}`">
@@ -33,6 +37,7 @@
         style="min-width: 36px; min-height: 36px;"
         :icon="['fas', 'phone']"
         color="text"
+        class="social-icon"
       />
     </a>
     <a v-if="props.links.linkedin" class="social-link" target="_blank" :class="column ? 'mt-4' : 'ml-4'" rel="noreferrer noopener" :href="props.links.linkedin">
@@ -40,6 +45,7 @@
         style="min-width: 36px; min-height: 36px;"
         :icon="['fab', 'linkedin']"
         color="text"
+        class="social-icon"
       />
     </a>
   </div>
@@ -74,8 +80,12 @@ const props = withDefaults(defineProps<Props>(), {
 })
 </script>
 
-<style>
+<style scoped>
 .social-link {
   color: inherit;
+}
+
+.social-icon {
+  color: rgb(var(--v-theme-title));
 }
 </style>

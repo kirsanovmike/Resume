@@ -48,7 +48,7 @@
         v-show="fab"
         color="info"
         icon
-        style="position: fixed; bottom: 32px; right: 32px"
+        style="position: fixed; bottom: 32px; right: 32px; z-index: 1"
         @click="toTop"
       >
         <font-awesome-icon

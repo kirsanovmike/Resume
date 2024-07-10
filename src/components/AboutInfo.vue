@@ -9,8 +9,8 @@
       </div>
     </v-col>
     <v-col cols="10" class="pl-6">
-      <h1 class="font--large-title">{{ name}}</h1>
-      <h2 class="font--title-2 font-italic mb-6">{{ position }}</h2>
+      <h1 class="font--large-title info--text">{{ name}}</h1>
+      <h2 class="font--title-2 font-italic mb-6 info--text">{{ position }}</h2>
       <social-bar :class="{ 'fixed-middle-right': !mdAndDown }" :column="!mdAndDown" :links="links" />
       <p class="font--text mb-9 text-info">{{ textAbout }}</p>
       <v-btn class="button--primary">
@@ -66,5 +66,9 @@ const links = {
   position: fixed;
   top: 46%;
   right: 32px;
+}
+
+.info--text {
+  color: rgb(var(--v-theme-info));
 }
 </style>

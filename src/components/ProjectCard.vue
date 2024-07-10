@@ -32,6 +32,7 @@
             <p class="title">{{ project.title }}</p>
             <v-btn icon @click="isActive.value = false">
               <font-awesome-icon :icon="['fas', 'xmark']" style="min-width: 52px; min-height: 52px;"
+                 class="subtitle"
               />
             </v-btn>
           </div>
@@ -40,7 +41,7 @@
           <v-col md="12" sm="12" lg="6">
 
             <v-card-text>
-              <p class="description mb-0">{{ project.description }}</p>
+              <p class="description subtitle mb-0">{{ project.description }}</p>
             </v-card-text>
           </v-col>
           <v-col class="d-flex align-center justify-center" md="12" sm="12" lg="6">
@@ -99,6 +100,10 @@ let openProjectDialogStatus = ref(false);
   font-weight: 800;
   font-size: 32px;
   line-height: 38px;
+  color: rgb(var(--v-theme-info));
+}
+
+.subtitle {
   color: rgb(var(--v-theme-info));
 }
 

@@ -11,7 +11,7 @@
           class="skill-card--icon mb-6"
           :color="props.skill.iconColor"
         />
-        <span class="font--title-3 mb-3">{{ props.skill.text }}</span>
+        <span class="font--title-3 skill-text mb-3">{{ props.skill.text }}</span>
         <div class="d-flex">
           <div
             v-for="skillLevel in 5"
@@ -37,6 +37,10 @@ const props = defineProps({
   height: 12px;
   background-color: #BAAED0;
   border-radius: 20px;
+}
+
+.skill-text {
+  color: rgb(var(--v-theme-info));
 }
 
 .skill-level--active {
