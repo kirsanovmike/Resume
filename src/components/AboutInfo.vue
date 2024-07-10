@@ -1,12 +1,14 @@
 <template>
   <v-row>
-    <v-col cols="2">
-      <img
-        class="image--style-round"
-        src="@/assets/img/photo.svg"
-      >
+    <v-col cols="2" class="d-flex">
+      <div style="width: 260px; min-width: 260px;">
+        <img
+          class="image--style-round"
+          src="@/assets/img/photo.svg"
+        >
+      </div>
     </v-col>
-    <v-col cols="10" class="pl-15">
+    <v-col cols="10" class="pl-6">
       <h1 class="font--large-title">{{ name}}</h1>
       <h2 class="font--title-2 font-italic mb-6">{{ position }}</h2>
       <social-bar :class="{ 'fixed-middle-right': !mdAndDown }" :column="!mdAndDown" :links="links" />
@@ -52,6 +54,9 @@ const links = {
   github: "https://github.com/kirsanovmike",
   telegram: "https://t.me/kirsanovmike",
   whatsapp: "https://wa.me/79250546355",
+  mail: "kirsanovmike@gmail.com",
+  phone: "+7 (925) 054-63-55",
+  linkedin: "https://linkedin.com/kirsanovmike",
 }
 
 </script>

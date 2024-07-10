@@ -37,18 +37,24 @@
           </div>
         </v-card-title>
         <v-row>
-          <v-col>
+          <v-col md="12" sm="12" lg="6">
 
             <v-card-text>
               <p class="description mb-0">{{ project.description }}</p>
             </v-card-text>
           </v-col>
-          <v-col class="d-flex align-center justify-center">
+          <v-col class="d-flex align-center justify-center" md="12" sm="12" lg="6">
             <img alt="" class="project-card--img" src="@/assets/img/project.svg"
-                 style="min-width: 610px; min-height: 400px;">
+                 :style="mdAndUp ? 'min-width: 610px; min-height: 400px;' : 'min-height: 60px;'">
           </v-col>
         </v-row>
-
+        <font-awesome-icon
+          v-if="project.isMedal"
+          :icon="['fas', 'medal']"
+          class="medal--text"
+          color="medal"
+          style="min-width: 72px; min-height: 72px; position: absolute; top: 0; right: 47%;"
+        />
       </v-card>
     </template>
   </v-dialog>
@@ -57,6 +63,9 @@
 <script lang="ts" setup>
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import {ref} from "vue";
+import { useDisplay } from 'vuetify'
+
+const { mdAndUp } = useDisplay()
 
 interface Project {
   title: string,
