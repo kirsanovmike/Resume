@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex align-center" :class="{'flex-column': column}">
+  <div class="d-flex align-center" :class="{'flex-column justify-center': column}" :style="column ? 'height: 100%; top: 0' : undefined">
     <a v-if="props.links.whatsapp" class="social-link" target="_blank" rel="noreferrer noopener" :href="props.links.whatsapp">
       <font-awesome-icon
         style="min-width: 36px; min-height: 36px;"
