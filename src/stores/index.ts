@@ -33,11 +33,12 @@ export const useIndexStore = defineStore('index', () => {
       querySnapshot.forEach((doc) => {
         const menuItem = {
           id: doc.id,
-          name: doc.data().name
+          name: doc.data().name,
+          order: doc.data().order
         }
         responceMenu.push(menuItem)
       })
-      menu.value = [...responceMenu]
+      menu.value = [...responceMenu.sort((a, b) => a.order - b.order)]
     }, (error: { message: any }) => {
       console.log("error.message: ", error.message)
     })
