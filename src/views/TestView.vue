@@ -80,10 +80,12 @@
                 :key="contactDetail.id"
                 class="font-text"
               >
-                {{ contactDetail.propertyName }}:
-                <a v-if="contactDetail.propertyName === 'Gmail'" :href="`mailto:${contactDetail.value}`" class="text-yellow">{{contactDetail.value}}</a>
-                <a v-else-if="contactDetail.value.includes('+')" :href="`mailto:${contactDetail.value}`" class="text-yellow">{{contactDetail.value}}</a>
-                <a v-else :href="contactDetail.value" class="text-yellow">{{contactDetail.value}}</a>
+                <span class="title--text">
+                  {{ contactDetail.propertyName }}:
+                </span>
+                <a v-if="contactDetail.propertyName === 'Gmail'" target="_blank" rel="noreferrer noopener" :href="`mailto:${contactDetail.value}`" class="text-yellow">{{contactDetail.value}}</a>
+                <a v-else-if="contactDetail.value.includes('+')" target="_blank" rel="noreferrer noopener" :href="`mailto:${contactDetail.value}`" class="text-yellow">{{contactDetail.value}}</a>
+                <a v-else :href="contactDetail.value" target="_blank" rel="noreferrer noopener" class="text-yellow">{{contactDetail.value}}</a>
               </p>
             
             </v-col>
@@ -293,6 +295,10 @@ watch(query,(newValue) => {
 </script>
 
 <style>
+.title--text {
+  color: rgb(var(--v-theme-title));
+}
+
 .image--style-round {
   border-radius: 100px;
   width: 240px;
