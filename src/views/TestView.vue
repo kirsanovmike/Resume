@@ -81,7 +81,9 @@
                 class="font-text"
               >
                 {{ contactDetail.propertyName }}:
-                <span class="text-yellow">{{ contactDetail.value }}</span>
+                <a v-if="contactDetail.propertyName === 'Gmail'" :href="`mailto:${contactDetail.value}`" class="text-yellow">{{contactDetail.value}}</a>
+                <a v-else-if="contactDetail.value.includes('+')" :href="`mailto:${contactDetail.value}`" class="text-yellow">{{contactDetail.value}}</a>
+                <a v-else :href="contactDetail.value" class="text-yellow">{{contactDetail.value}}</a>
               </p>
             
             </v-col>
