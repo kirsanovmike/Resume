@@ -17,6 +17,10 @@ dom.watch();
 
 import vuetify from '@/plugin/vuetify'
 
+import Toast, {POSITION} from "vue-toastification";
+import "vue-toastification/dist/index.css";
+import "@/assets/vue-toastification.scss";
+
 import App from './App.vue'
 import router from './router'
 
@@ -26,4 +30,5 @@ const pinia = createPinia()
 
 pinia.use(piniaFactoryPlugin)
 
-createApp(App).use(pinia).use(router).use(vuetify).component("font-awesome-icon", FontAwesomeIcon).mount('#app')
+
+createApp(App).use(pinia).use(router).use(vuetify).use(Toast, {position: POSITION.BOTTOM_RIGHT}).component("font-awesome-icon", FontAwesomeIcon).mount('#app')

@@ -4,8 +4,8 @@
       <v-spacer />
       <v-col v-if="indexStore.getMenu && indexStore.getMenu[0] != null" cols="10" id="parent-container">
         <!-- hello -->
-        <div :id="indexStore.getMenu[1].id">
-          <section class="pt-10 pb-15 section-margin">
+        <div :id="indexStore.getMenu[0].id">
+          <section class="pt-14 pb-15 section-margin">
             <about-info
               :data="indexStore.getAbout"
               :language="indexStore.getSelectedLanguage"
@@ -14,12 +14,8 @@
         </div>
         <!-- /hello -->
         <!-- skills -->
-        <section :id="indexStore.getMenu[0].id" class="pt-10 pb-15 section-margin">
-          <div class="d-flex justify-center">
-            <h2 class="font--title-1 text-center mb-14 text-info title--stroke">
-              Skills
-            </h2>
-          </div>
+        <section :id="indexStore.getMenu[1].id" class="pt-10 pb-15 section-margin">
+          <header-card title="Skills" />
           <v-row>
             <v-spacer />
             <v-col cols="9" class="d-flex flex-wrap">
@@ -34,9 +30,9 @@
         </section>
         <!-- /skills -->
         <!-- experience -->
-        <section class="pt-10 pb-15 section-margin">
+        <section class="pt-10 pb-15 section-margin" :id="indexStore.getMenu[2].id">
           <div class="d-flex justify-center">
-            <h2 :id="indexStore.getMenu[4].id" class="font--title-1 text-center mb-14 text-info title--stroke">Experience</h2>
+            <header-card title="Experience" />
           </div>
           <experience-panels :items="experienceItems"/>
           <h3 class="font--title-2 text-center mt-10 mb-6 text-info">Education</h3>
@@ -46,10 +42,8 @@
         </section>
         <!-- /experience -->
         <!-- projects -->
-        <section :id="indexStore.getMenu[2].id" class="pt-10 pb-15 section-margin">
-          <div class="d-flex justify-center">
-            <h2 class="font--title-1 text-center mb-14 text-info title--stroke">Projects</h2>
-          </div>
+        <section :id="indexStore.getMenu[3].id" class="pt-10 pb-15 section-margin">
+          <header-card title="Projects" />
           <v-row>
             <v-col
               v-for="project in projects"
@@ -68,11 +62,11 @@
         </section>
         <!-- /projects -->
         <!-- contact -->
-        <section :id="indexStore.getMenu[3].id" class="pt-10 pb-15">
+        <section :id="indexStore.getMenu[4].id" class="pt-10 pb-15">
           <v-row>
             <v-col cols="6">
               <div class="d-flex">
-                <h2 class="font--title-1 text-info title--stroke mb-8">Contact Details</h2>
+                <header-card title="Contact Details" class="mb-8" />
               </div>
               <h3 class="font--title-2 text-info mb-8">Have a project? Let me know!</h3>
               <p
@@ -100,7 +94,12 @@
                 <v-text-field
                   label="Last name"
                 />
-                <v-btn class="mt-2 button--primary" type="submit" block>Submit</v-btn>
+                <v-btn
+                  class="mt-2 button--primary"
+                  @click="toast.success('Эта форма пока не работает!')"
+                  type="submit"
+                  block
+                >Submit</v-btn>
               </v-form>
             </v-col>
           </v-row>
@@ -115,9 +114,11 @@
 import {computed, ref, watch} from 'vue'
 import { useRoute } from 'vue-router'
 import AboutInfo from "@/components/AboutInfo.vue"
+import HeaderCard from "@/components/HeaderCard.vue"
 import TheWelcome from '@/components/TheWelcome.vue'
 import Skill from "@/components/Skill.vue";
 import ExperiencePanels from "@/components/common/ExperiencePanels.vue";
+import { useToast } from "vue-toastification";
 
 import {useIndexStore} from "@/stores/index";
 import {useGoTo} from "vuetify";
@@ -282,6 +283,8 @@ const contactDetails = ref([
 
 const query = computed(() => route.query);
 
+const toast = useToast();
+
 watch(query,(newValue) => {
   if (newValue?.block != null && document.getElementById(newValue?.block)) {
     document.getElementById(newValue?.block).scrollIntoView({
@@ -321,21 +324,5 @@ watch(query,(newValue) => {
   max-width: 399px;
 }
 
-.title--stroke {
-  position: relative;
-  display: block;
-}
-
-.title--stroke:before {
-  content: "";
-  position: absolute;
-  top: 90%;
-  left: 0%;
-  width: 100%;
-  height: 100%;
-  background-image: url("@/assets/img/line.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
-}
 
 </style>
