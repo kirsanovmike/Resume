@@ -20,7 +20,7 @@
             <v-spacer />
             <v-col cols="9" class="d-flex flex-wrap">
               <skill
-                v-for="skill in skills"
+                v-for="skill in indexStore.getSkills"
                 :key="skill.id"
                 :skill="skill"
               />
@@ -34,10 +34,11 @@
           <div class="d-flex justify-center">
             <header-card title="Experience" />
           </div>
-          <experience-panels :items="experienceItems"/>
           <h3 class="font--title-2 text-center mt-10 mb-6 text-info">Education</h3>
           <experience-panels :items="experienceItems"/>
           <h3 class="font--title-2 text-center mt-10 mb-6 text-info">Work Experience</h3>
+          <experience-panels :items="indexStore.getWorkExperience"/>
+          <h3 class="font--title-2 text-center mt-10 mb-6 text-info">Courses</h3>
           <experience-panels :items="experienceItems"/>
         </section>
         <!-- /experience -->
@@ -127,59 +128,6 @@ const goTo = useGoTo()
 const route = useRoute()
 const indexStore = useIndexStore();
 
-
-const skills = ref([
-  {
-    id: 0,
-    text: "JavaScript",
-    icon: ["fab", "js"],
-    iconColor: "#EFD81D",
-    level: 3,
-  },
-  {
-    id: 1,
-    text: "JavaScript",
-    icon: ["fab", "vuejs"],
-    iconColor: "#47BA87",
-    level: 2,
-  },
-  {
-    id: 2,
-    text: "HTML",
-    icon: ["fab", "html5"],
-    iconColor: "#FC4F13",
-    level: 5,
-  },
-  {
-    id: 3,
-    text: "css",
-    icon: ["fab", "css3-alt"],
-    iconColor: "#3C9CD6",
-    level: 3,
-  },
-  {
-    id: 4,
-    text: "Sass",
-    icon: ["fab", "sass"],
-    iconColor: "#D66FA4",
-    level: 1,
-  },
-  {
-    id: 5,
-    text: "Git",
-    icon: ["fab", "git-alt"],
-    iconColor: "#E94E31",
-    level: 4,
-  },
-  {
-    id: 6,
-    text: "Docker",
-    icon: ["fab", "docker"],
-    iconColor: "#0895E7",
-    level: 5,
-  },
-
-])
 
 const projects = ref([
   {
