@@ -75,8 +75,8 @@ import router from "@/router";
 const theme = useTheme();
 const userStore = useUserStore();
 const indexStore = useIndexStore();
-const {initDB, loadMenu, loadlanguages, setSelectedLanguage,
-  loadAbout, loadSkills, loadWorkExperience} = indexStore;
+const {initDB, loadMenu, loadlanguages, loadEducationExperience, setSelectedLanguage,
+  loadAbout, loadSkills, loadWorkExperience, loadCoursesExperience, loadContactDetails, loadProjects} = indexStore;
 
 const {fetchData} = userStore;
 const statusUserId = computed(() =>
@@ -104,6 +104,10 @@ onBeforeMount(async () => {
   loadAbout()
   loadSkills()
   loadWorkExperience()
+  loadEducationExperience()
+  loadCoursesExperience()
+  loadContactDetails()
+  loadProjects()
 })
 
 let themeCounter = ref(0);

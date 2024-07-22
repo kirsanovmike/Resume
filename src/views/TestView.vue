@@ -35,11 +35,11 @@
             <header-card title="Experience" />
           </div>
           <h3 class="font--title-2 text-center mt-10 mb-6 text-info">Education</h3>
-          <experience-panels :items="experienceItems"/>
+          <experience-panels :items="indexStore.getEducationExperience"/>
           <h3 class="font--title-2 text-center mt-10 mb-6 text-info">Work Experience</h3>
           <experience-panels :items="indexStore.getWorkExperience"/>
           <h3 class="font--title-2 text-center mt-10 mb-6 text-info">Courses</h3>
-          <experience-panels :items="experienceItems"/>
+          <experience-panels :items="indexStore.getCoursesExperience"/>
         </section>
         <!-- /experience -->
         <!-- projects -->
@@ -47,7 +47,7 @@
           <header-card title="Projects" />
           <v-row>
             <v-col
-              v-for="project in projects"
+              v-for="project in indexStore.getProjects"
               :key="project.id"
               class="d-flex justify-center"
               cols="4"
@@ -71,13 +71,14 @@
               </div>
               <h3 class="font--title-2 text-info mb-8">Have a project? Let me know!</h3>
               <p
-                v-for="contactDetail in contactDetails"
+                v-for="contactDetail in indexStore.getContactDetails"
                 :key="contactDetail.id"
                 class="font-text"
               >
                 <span class="title--text">
                   {{ contactDetail.propertyName }}:
                 </span>
+                <!-- TODO: Добавила type -->
                 <a v-if="contactDetail.propertyName === 'Gmail'" target="_blank" rel="noreferrer noopener" :href="`mailto:${contactDetail.value}`" class="text-yellow">{{contactDetail.value}}</a>
                 <a v-else-if="contactDetail.value.includes('+')" target="_blank" rel="noreferrer noopener" :href="`mailto:${contactDetail.value}`" class="text-yellow">{{contactDetail.value}}</a>
                 <a v-else :href="contactDetail.value" target="_blank" rel="noreferrer noopener" class="text-yellow">{{contactDetail.value}}</a>
@@ -127,107 +128,6 @@ import ProjectCard from "@/components/ProjectCard.vue";
 const goTo = useGoTo()
 const route = useRoute()
 const indexStore = useIndexStore();
-
-
-const projects = ref([
-  {
-    id: 0,
-    title: "Case 0",
-    text: "More information →",
-    isMedal: true,
-    description: "Многие думают, что Lorem Ipsum - взятый с потолка псевдо-латинский набор слов, но это не совсем так. Его корни уходят в один фрагмент классической латыни 45 года н.э., то есть более двух тысячелетий назад. Ричард МакКлинток, профессор латыни из колледжа Hampden-Sydney, штат Вирджиния, взял одно из самых странных слов в Lorem Ipsum Lorem Ipsum - это текст-, часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной Aldus PageMaker"
-  },
-  {
-    id: 1,
-    title: "Case 1",
-    text: "More information →",
-    isMedal: false,
-    description: "Многие думают, что Lorem Ipsum - взятый с потолка псевдо-латинский набор слов, но это не совсем так. Его корни уходят в один фрагмент классической латыни 45 года н.э., то есть более двух тысячелетий назад. Ричард МакКлинток, профессор латыни из колледжа Hampden-Sydney, штат Вирджиния, взял одно из самых странных слов в Lorem Ipsum Lorem Ipsum - это текст-, часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной Aldus PageMaker"
-  },
-  {
-    id: 2,
-    title: "Case 2",
-    text: "More information →",
-    isMedal: false,
-    description: "Многие думают, что Lorem Ipsum - взятый с потолка псевдо-латинский набор слов, но это не совсем так. Его корни уходят в один фрагмент классической латыни 45 года н.э., то есть более двух тысячелетий назад. Ричард МакКлинток, профессор латыни из колледжа Hampden-Sydney, штат Вирджиния, взял одно из самых странных слов в Lorem Ipsum Lorem Ipsum - это текст-, часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной Aldus PageMaker"
-  },
-  {
-    id: 3,
-    title: "Case 3",
-    text: "More information →",
-    isMedal: false,
-    description: "Многие думают, что Lorem Ipsum - взятый с потолка псевдо-латинский набор слов, но это не совсем так. Его корни уходят в один фрагмент классической латыни 45 года н.э., то есть более двух тысячелетий назад. Ричард МакКлинток, профессор латыни из колледжа Hampden-Sydney, штат Вирджиния, взял одно из самых странных слов в Lorem Ipsum Lorem Ipsum - это текст-, часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной Aldus PageMaker"
-  },
-  {
-    id: 4,
-    title: "Case 4",
-    text: "More information →",
-    isMedal: false,
-    description: "Многие думают, что Lorem Ipsum - взятый с потолка псевдо-латинский набор слов, но это не совсем так. Его корни уходят в один фрагмент классической латыни 45 года н.э., то есть более двух тысячелетий назад. Ричард МакКлинток, профессор латыни из колледжа Hampden-Sydney, штат Вирджиния, взял одно из самых странных слов в Lorem Ipsum Lorem Ipsum - это текст-, часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной Aldus PageMaker"
-  },
-  {
-    id: 5,
-    title: "Case 5",
-    text: "More information →",
-    isMedal: false,
-    description: "Многие думают, что Lorem Ipsum - взятый с потолка псевдо-латинский набор слов, но это не совсем так. Его корни уходят в один фрагмент классической латыни 45 года н.э., то есть более двух тысячелетий назад. Ричард МакКлинток, профессор латыни из колледжа Hampden-Sydney, штат Вирджиния, взял одно из самых странных слов в Lorem Ipsum Lorem Ipsum - это текст-, часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной Aldus PageMaker"
-  }
-])
-
-const experienceItems = [
-  {
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat",
-    icon: ['fas', 'location-dot'],
-    iconPostfix: "Moscow",
-    title: "Assistant",
-    period: "2020-2021",
-    isSelected: false
-  },
-  {
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat",
-    icon: ['fas', 'location-dot'],
-    iconPostfix: "Moscow",
-    title: "Assistant",
-    period: "2020-2021",
-    isSelected: false
-  },
-  {
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat",
-    icon: ['fas', 'location-dot'],
-    iconPostfix: "Moscow",
-    title: "Assistant",
-    period: "2020-2021",
-    isSelected: false
-  }
-]
-
-const contactDetails = ref([
-  {
-    id: 0,
-    propertyName: "Gmail",
-    value: "ivanov@gmail.com"
-  },
-  {
-    id: 1,
-    propertyName: "Linkedin",
-    value: "@ivanov"
-  },
-  {
-    id: 2,
-    propertyName: "Telegram",
-    value: "@ivanov"
-  },
-  {
-    id: 3,
-    propertyName: "WhatsApp",
-    value: "@ivanov"
-  },
-  {
-    id: 4,
-    propertyName: "Phone",
-    value: "+7 (123) 456-78-90"
-  },
-])
 
 const query = computed(() => route.query);
 

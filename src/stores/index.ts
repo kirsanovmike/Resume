@@ -2,7 +2,8 @@ import { ref, computed} from 'vue'
 import { defineStore } from 'pinia'
 import { collection, onSnapshot, query, orderBy, updateDoc, doc, DocumentReference, type DocumentData} from "firebase/firestore"
 import { db } from "@/config/firebase"
-import {type MenuItem, type LanguageItem, type AboutItem, type SkillItem, type WorkExperienceItem} from "@/interfaces/Index"
+import {type MenuItem, type LanguageItem, type AboutItem, type SkillItem, type WorkExperienceItem,
+  type ContactDetailsItem, type EducationExperienceItem, type CoursesExperienceItem} from "@/interfaces/Index"
 
 let menuCollectionQuery: any = null
 let menuCollectionRef: any = null
@@ -19,12 +20,28 @@ let skillsCollectionRef: any = null
 let workExperienceCollectionQuery: any = null
 let workExperienceCollectionRef: any = null
 
+let educationExperienceCollectionQuery: any = null
+let educationExperienceCollectionRef: any = null
+
+let coursesExperienceCollectionQuery: any = null
+let coursesExperienceCollectionRef: any = null
+
+let contactDetailsCollectionQuery: any = null
+let contactDetailsCollectionRef: any = null
+
+let projectsCollectionQuery: any = null
+let projectsCollectionRef: any = null
+
 export const useIndexStore = defineStore('index', () => {
   const languages = ref<LanguageItem []>([])
   const menu = ref<MenuItem []>([])
   const about = ref<AboutItem>({})
   const skills = ref<SkillItem []>([])
   const workExperience = ref<WorkExperienceItem []>([])
+  const educationExperience = ref<EducationExperienceItem []>([])
+  const coursesExperience = ref<CoursesExperienceItem []>([])
+  const contactDetails = ref<ContactDetailsItem []>([])
+  const projects = ref<ProjectItem []>([])
 
   let selectedLanguage = ref<string>("ru");
 
@@ -39,6 +56,14 @@ export const useIndexStore = defineStore('index', () => {
     skillsCollectionQuery = query(skillsCollectionRef)
     workExperienceCollectionRef = collection(db, "workexperience")
     workExperienceCollectionQuery = query(workExperienceCollectionRef)
+    educationExperienceCollectionRef = collection(db, "educationexperience")
+    educationExperienceCollectionQuery = query(educationExperienceCollectionRef)
+    coursesExperienceCollectionRef = collection(db, "coursesexperience")
+    coursesExperienceCollectionQuery = query(coursesExperienceCollectionRef)
+    contactDetailsCollectionRef = collection(db, "contactdetails")
+    contactDetailsCollectionQuery = query(contactDetailsCollectionRef)
+    projectsCollectionRef = collection(db, "projects")
+    projectsCollectionQuery = query(projectsCollectionRef)
   }
 
   async function loadMenu() {
@@ -130,6 +155,85 @@ export const useIndexStore = defineStore('index', () => {
     })
   }
 
+  async function loadEducationExperience() {
+    onSnapshot(educationExperienceCollectionQuery, (querySnapshot) => {
+      const responceEducationExperience: any[] = []
+      querySnapshot.forEach((doc) => {
+        const educationExperienceItem = {
+          id: doc.id,
+          icon: doc.data().icon,
+          iconPostfix: doc.data().iconPostfix,
+          isSelected: doc.data().isSelected,
+          period: doc.data().period,
+          text: doc.data().text,
+          title: doc.data().title
+        }
+        responceEducationExperience.push(educationExperienceItem)
+      })
+      educationExperience.value = [...responceEducationExperience]
+    }, (error: { message: any }) => {
+      console.log("error.message: ", error.message)
+    })
+  }
+
+  async function loadCoursesExperience() {
+    onSnapshot(coursesExperienceCollectionQuery, (querySnapshot) => {
+      const responceCoursesExperience: any[] = []
+      querySnapshot.forEach((doc) => {
+        const coursesExperienceItem = {
+          id: doc.id,
+          icon: doc.data().icon,
+          iconPostfix: doc.data().iconPostfix,
+          isSelected: doc.data().isSelected,
+          period: doc.data().period,
+          text: doc.data().text,
+          title: doc.data().title
+        }
+        responceCoursesExperience.push(coursesExperienceItem)
+      })
+      coursesExperience.value = [...responceCoursesExperience]
+    }, (error: { message: any }) => {
+      console.log("error.message: ", error.message)
+    })
+  }
+
+  async function loadContactDetails() {
+    onSnapshot(contactDetailsCollectionQuery, (querySnapshot) => {
+      const responceContactDetails: any[] = []
+      querySnapshot.forEach((doc) => {
+        const contactDetailsItem = {
+          id: doc.id,
+          propertyName: doc.data().propertyName,
+          type: doc.data().type,
+          value: doc.data().value,
+        }
+        responceContactDetails.push(contactDetailsItem)
+      })
+      contactDetails.value = [...responceContactDetails]
+    }, (error: { message: any }) => {
+      console.log("error.message: ", error.message)
+    })
+  }
+
+  async function loadProjects() {
+    onSnapshot(projectsCollectionQuery, (querySnapshot) => {
+      const responceProjects: any[] = []
+      querySnapshot.forEach((doc) => {
+        const projectsItem = {
+          id: doc.id,
+          title: doc.data().title,
+          text: doc.data().text,
+          description: doc.data().description,
+          isMedal: doc.data().isMedal,
+        }
+        responceProjects.push(projectsItem)
+      })
+      projects.value = [...responceProjects]
+    }, (error: { message: any }) => {
+      console.log("error.message: ", error.message)
+    })
+  }
+
   function setSelectedLanguage(value: string) {
     selectedLanguage.value = value
   }
@@ -144,9 +248,26 @@ export const useIndexStore = defineStore('index', () => {
     title: el.title[selectedLanguage.value],
     text: el.text[selectedLanguage.value]
   })))
+  const getEducationExperience = computed(() => educationExperience.value.map(el => ({
+    ...el,
+    title: el.title[selectedLanguage.value],
+    text: el.text[selectedLanguage.value]
+  })))
+  const getCoursesExperience = computed(() => coursesExperience.value.map(el => ({
+    ...el,
+    title: el.title[selectedLanguage.value],
+    text: el.text[selectedLanguage.value]
+  })))
+  const getContactDetails = computed(() => contactDetails.value)
+  const getProjects = computed(() => projects.value.map(el => ({
+    ...el,
+    title: el.title[selectedLanguage.value],
+    text: el.text[selectedLanguage.value],
+    description: el.description[selectedLanguage.value],
+  })))
 
 
-  return { menu, initDB, loadMenu, loadlanguages, loadSkills, loadWorkExperience, getMenu,
-    getLanguages, loadAbout, getAbout, getSelectedLanguage, setSelectedLanguage,
-    getSkills, getWorkExperience }
+  return { menu, initDB, loadMenu, loadlanguages, loadSkills, loadWorkExperience, loadEducationExperience, loadCoursesExperience, loadContactDetails,
+    loadProjects, getMenu, getLanguages, loadAbout, getAbout, getSelectedLanguage, setSelectedLanguage,
+    getSkills, getWorkExperience, getEducationExperience, getCoursesExperience, getContactDetails, getProjects }
 })

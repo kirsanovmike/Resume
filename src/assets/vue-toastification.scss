@@ -1,6 +1,6 @@
 
-$vt-color-success: var(--v-theme-warning);
-$vt-text-color-success: var(--v-theme-warning);
+$vt-color-success: rgb(var(--v-theme-card));
+$vt-text-color-success: rgb(var(--v-theme-warning));
 
 // Import the regular Vue Toastification stylesheets (or create your own)
 @import "vue-toastification/src/scss/_variables";
