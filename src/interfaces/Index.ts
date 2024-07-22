@@ -95,3 +95,11 @@ export interface ProjectItem {
   },
   isMedal: boolean,
 }
+
+export interface HeaderItem {
+  id: number,
+  title: {
+    ru: string,
+    en: string,
+  },
+}

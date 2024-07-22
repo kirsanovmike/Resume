@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import { collection, onSnapshot, query, orderBy, updateDoc, doc, DocumentReference, type DocumentData} from "firebase/firestore"
 import { db } from "@/config/firebase"
 import {type MenuItem, type LanguageItem, type AboutItem, type SkillItem, type WorkExperienceItem,
-  type ContactDetailsItem, type EducationExperienceItem, type CoursesExperienceItem} from "@/interfaces/Index"
+  type ContactDetailsItem, type EducationExperienceItem, type CoursesExperienceItem, type HeaderItem} from "@/interfaces/Index"
 
 let menuCollectionQuery: any = null
 let menuCollectionRef: any = null
@@ -32,6 +32,9 @@ let contactDetailsCollectionRef: any = null
 let projectsCollectionQuery: any = null
 let projectsCollectionRef: any = null
 
+let headersCollectionQuery: any = null
+let headersCollectionRef: any = null
+
 export const useIndexStore = defineStore('index', () => {
   const languages = ref<LanguageItem []>([])
   const menu = ref<MenuItem []>([])
@@ -42,6 +45,7 @@ export const useIndexStore = defineStore('index', () => {
   const coursesExperience = ref<CoursesExperienceItem []>([])
   const contactDetails = ref<ContactDetailsItem []>([])
   const projects = ref<ProjectItem []>([])
+  const headers = ref<HeaderItem []>([])
 
   let selectedLanguage = ref<string>("ru");
 
@@ -64,6 +68,8 @@ export const useIndexStore = defineStore('index', () => {
     contactDetailsCollectionQuery = query(contactDetailsCollectionRef)
     projectsCollectionRef = collection(db, "projects")
     projectsCollectionQuery = query(projectsCollectionRef)
+    headersCollectionRef = collection(db, "headers")
+    headersCollectionQuery = query(headersCollectionRef)
   }
 
   async function loadMenu() {
@@ -234,6 +240,22 @@ export const useIndexStore = defineStore('index', () => {
     })
   }
 
+  async function loadHeaders() {
+    onSnapshot(headersCollectionQuery, (querySnapshot) => {
+      const responceHeaders: any[] = []
+      querySnapshot.forEach((doc) => {
+        const headersItem = {
+          id: doc.id,
+          title: doc.data().title,
+        }
+        responceHeaders.push(headersItem)
+      })
+      headers.value = [...responceHeaders]
+    }, (error: { message: any }) => {
+      console.log("error.message: ", error.message)
+    })
+  }
+
   function setSelectedLanguage(value: string) {
     selectedLanguage.value = value
   }
@@ -265,9 +287,10 @@ export const useIndexStore = defineStore('index', () => {
     text: el.text[selectedLanguage.value],
     description: el.description[selectedLanguage.value],
   })))
+  const getHeaders = computed(() => headers.value)
 
 
   return { menu, initDB, loadMenu, loadlanguages, loadSkills, loadWorkExperience, loadEducationExperience, loadCoursesExperience, loadContactDetails,
-    loadProjects, getMenu, getLanguages, loadAbout, getAbout, getSelectedLanguage, setSelectedLanguage,
-    getSkills, getWorkExperience, getEducationExperience, getCoursesExperience, getContactDetails, getProjects }
+    loadProjects, loadHeaders, getMenu, getLanguages, loadAbout, getAbout, getSelectedLanguage, setSelectedLanguage,
+    getSkills, getWorkExperience, getEducationExperience, getCoursesExperience, getContactDetails, getProjects, getHeaders }
 })

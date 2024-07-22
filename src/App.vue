@@ -76,7 +76,7 @@ const theme = useTheme();
 const userStore = useUserStore();
 const indexStore = useIndexStore();
 const {initDB, loadMenu, loadlanguages, loadEducationExperience, setSelectedLanguage,
-  loadAbout, loadSkills, loadWorkExperience, loadCoursesExperience, loadContactDetails, loadProjects} = indexStore;
+  loadAbout, loadSkills, loadWorkExperience, loadCoursesExperience, loadContactDetails, loadProjects, loadHeaders} = indexStore;
 
 const {fetchData} = userStore;
 const statusUserId = computed(() =>
@@ -108,6 +108,7 @@ onBeforeMount(async () => {
   loadCoursesExperience()
   loadContactDetails()
   loadProjects()
+  loadHeaders()
 })
 
 let themeCounter = ref(0);

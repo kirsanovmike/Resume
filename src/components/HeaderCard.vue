@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex justify-center pt-4">
-    <div class="d-flex flex-column mb-14">
+    <div class="d-flex flex-column mb-14" :key="props.title">
       <h2 ref="header" class="font--title-1 text-center text-info title--stroke">
         {{ props.title }}
       </h2>

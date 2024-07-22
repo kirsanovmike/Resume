@@ -15,7 +15,7 @@
         <!-- /hello -->
         <!-- skills -->
         <section :id="indexStore.getMenu[1].id" class="pt-10 pb-15 section-margin">
-          <header-card title="Skills" />
+          <header-card :title="indexStore.getHeaders[0].title[indexStore.getSelectedLanguage]" />
           <v-row>
             <v-spacer />
             <v-col cols="9" class="d-flex flex-wrap">
@@ -32,19 +32,19 @@
         <!-- experience -->
         <section class="pt-10 pb-15 section-margin" :id="indexStore.getMenu[2].id">
           <div class="d-flex justify-center">
-            <header-card title="Experience" />
+            <header-card :title="indexStore.getHeaders[1].title[indexStore.getSelectedLanguage]" />
           </div>
-          <h3 class="font--title-2 text-center mt-10 mb-6 text-info">Education</h3>
+          <h3 class="font--title-2 text-center mt-10 mb-6 text-info">{{ indexStore.getHeaders[2].title[indexStore.getSelectedLanguage] }}</h3>
           <experience-panels :items="indexStore.getEducationExperience"/>
-          <h3 class="font--title-2 text-center mt-10 mb-6 text-info">Work Experience</h3>
+          <h3 class="font--title-2 text-center mt-10 mb-6 text-info">{{ indexStore.getHeaders[3].title[indexStore.getSelectedLanguage] }}</h3>
           <experience-panels :items="indexStore.getWorkExperience"/>
-          <h3 class="font--title-2 text-center mt-10 mb-6 text-info">Courses</h3>
+          <h3 class="font--title-2 text-center mt-10 mb-6 text-info">{{ indexStore.getHeaders[4].title[indexStore.getSelectedLanguage] }}</h3>
           <experience-panels :items="indexStore.getCoursesExperience"/>
         </section>
         <!-- /experience -->
         <!-- projects -->
         <section :id="indexStore.getMenu[3].id" class="pt-10 pb-15 section-margin">
-          <header-card title="Projects" />
+          <header-card :title="indexStore.getHeaders[5].title[indexStore.getSelectedLanguage]" />
           <v-row>
             <v-col
               v-for="project in indexStore.getProjects"
@@ -67,9 +67,9 @@
           <v-row>
             <v-col cols="6">
               <div class="d-flex">
-                <header-card title="Contact Details" class="mb-8" />
+                <header-card :title="indexStore.getHeaders[6].title[indexStore.getSelectedLanguage]" class="mb-8" />
               </div>
-              <h3 class="font--title-2 text-info mb-8">Have a project? Let me know!</h3>
+              <h3 class="font--title-2 text-info mb-8">{{ indexStore.getHeaders[7].title[indexStore.getSelectedLanguage] }}</h3>
               <p
                 v-for="contactDetail in indexStore.getContactDetails"
                 :key="contactDetail.id"
