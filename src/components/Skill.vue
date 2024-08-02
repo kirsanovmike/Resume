@@ -44,6 +44,6 @@ const props = defineProps({
 }
 
 .skill-level--active {
-  background-color: #615477
+  background-color: rgb(var(--v-theme-background))
 }
 </style>

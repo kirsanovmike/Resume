@@ -16,6 +16,7 @@
 <script lang="ts" setup>
 import {ref, computed, watch} from "vue";
 import {useIndexStore} from "@/stores";
+import {useRoute} from "vue-router";
 const indexStore = useIndexStore();
 
 interface ListElem {
@@ -26,12 +27,15 @@ interface ListElem {
 
 interface Props {
   items?: ListElem[],
-  selectedId: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   items: () => [],
-  selectedId: ""
+})
+
+const route = useRoute()
+const selectedId = computed<string>(() => {
+  return route.query?.block ?? ""
 })
 
 const active = ref("")

@@ -28,7 +28,7 @@ const props = defineProps({
 const header = ref(null)
 
 onMounted(() => {
-  console.log(header.value.offsetWidth)
+  // console.log(header.value.offsetWidth)
 })
 
 const lineWidth = computed(() => {

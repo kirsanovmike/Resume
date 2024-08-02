@@ -35,7 +35,7 @@
         <v-row>
           <v-spacer/>
           <v-col cols="10">
-            <nav-list :items="indexStore.getMenu" :selected-id="selectedId" @selectMenuOption="goToElem($event)"/>
+            <nav-list :items="indexStore.getMenu" @selectMenuOption="goToElem($event)"/>
             <!-- <nav-list :items="links" /> -->
           </v-col>
           <v-spacer/>
@@ -73,6 +73,7 @@ import ChangeLanguage from "@/components/ChangeLanguage.vue";
 import NavList from "@/components/common/NavList.vue";
 import router from "@/router";
 import {useAnimationExplosion} from "@/use/useAnimationExplosion"
+import {useRoute} from "vue-router";
 
 const theme = useTheme();
 const userStore = useUserStore();
@@ -137,21 +138,24 @@ const switchTheme = () => {
   themeCounter.value++;
 };
 
+const route = useRoute()
+const selectedId = computed<string>(() => {
+  return route.query?.block ?? ""
+})
 const defId: ComputedRef<string> = computed(() => indexStore?.getMenu?.[0]?.id)
-
-let selectedId = ref<string>("");
 watch(defId, (newValue) => {
-    if (newValue != null) {
-      selectedId.value = newValue;
+    if (newValue != null && selectedId.value === "") {
+      router.push({query: {block: newValue}})
     }
   },
   {immediate: true}
 )
 
-
 const goToElem = (itemId: string) => {
+  document.getElementById(itemId).scrollIntoView({
+    behavior: 'smooth'
+  });
   router.push({query: {block: itemId}})
-  selectedId.value = itemId;
 }
 let fab = ref(false);
 const onScroll = (e: any) => {

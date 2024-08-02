@@ -4,7 +4,7 @@
       <v-spacer />
       <v-col v-if="indexStore.getMenu && indexStore.getMenu[0] != null" cols="10" id="parent-container">
         <!-- hello -->
-        <div :id="indexStore.getMenu[0].id">
+        <div :id="indexStore.getMenu[0].id" v-intersect="onIntersect">
           <section class="pt-14 pb-15 section-margin">
             <about-info
               :data="indexStore.getAbout"
@@ -14,9 +14,9 @@
         </div>
         <!-- /hello -->
         <!-- skills -->
-        <section :id="indexStore.getMenu[1].id" class="pt-10 pb-15 section-margin">
-          <header-card :title="indexStore.getHeaders[0].title[indexStore.getSelectedLanguage]" />
-          <v-row>
+        <section class="pt-10 pb-15 section-margin">
+          <header-card :title="getHeadersByIndex(0)" />
+          <v-row :id="indexStore.getMenu[1].id" v-intersect="onIntersect">
             <v-spacer />
             <v-col cols="9" class="d-flex flex-wrap">
               <skill
@@ -30,21 +30,21 @@
         </section>
         <!-- /skills -->
         <!-- experience -->
-        <section class="pt-10 pb-15 section-margin" :id="indexStore.getMenu[2].id">
+        <section class="pt-10 pb-15 section-margin" :id="indexStore.getMenu[2].id" v-intersect="onIntersect">
           <div class="d-flex justify-center">
-            <header-card :title="indexStore.getHeaders[1].title[indexStore.getSelectedLanguage]" />
+            <header-card :title="getHeadersByIndex(1)" />
           </div>
-          <h3 class="font--title-2 text-center mt-10 mb-6 text-info">{{ indexStore.getHeaders[2].title[indexStore.getSelectedLanguage] }}</h3>
+          <h3 class="font--title-2 text-center mt-10 mb-6 text-info">{{ getHeadersByIndex(2) }}</h3>
           <experience-panels :items="indexStore.getEducationExperience"/>
-          <h3 class="font--title-2 text-center mt-10 mb-6 text-info">{{ indexStore.getHeaders[3].title[indexStore.getSelectedLanguage] }}</h3>
+          <h3 class="font--title-2 text-center mt-10 mb-6 text-info">{{ getHeadersByIndex(3) }}</h3>
           <experience-panels :items="indexStore.getWorkExperience"/>
-          <h3 class="font--title-2 text-center mt-10 mb-6 text-info">{{ indexStore.getHeaders[4].title[indexStore.getSelectedLanguage] }}</h3>
+          <h3 class="font--title-2 text-center mt-10 mb-6 text-info">{{ getHeadersByIndex(4) }}</h3>
           <experience-panels :items="indexStore.getCoursesExperience"/>
         </section>
         <!-- /experience -->
         <!-- projects -->
-        <section :id="indexStore.getMenu[3].id" class="pt-10 pb-15 section-margin">
-          <header-card :title="indexStore.getHeaders[5].title[indexStore.getSelectedLanguage]" />
+        <section :id="indexStore.getMenu[3].id" class="pt-10 pb-15 section-margin" v-intersect="onIntersect">
+          <header-card :title="getHeadersByIndex(5)" />
           <v-row>
             <v-col
               v-for="project in indexStore.getProjects"
@@ -63,13 +63,13 @@
         </section>
         <!-- /projects -->
         <!-- contact -->
-        <section :id="indexStore.getMenu[4].id" class="pt-10 pb-15">
+        <section :id="indexStore.getMenu[4].id" class="pt-10 pb-15" v-intersect="onIntersect">
           <v-row>
             <v-col cols="6">
               <div class="d-flex">
-                <header-card :title="indexStore.getHeaders[6].title[indexStore.getSelectedLanguage]" class="mb-8" />
+                <header-card :title="getHeadersByIndex(6)" class="mb-8" />
               </div>
-              <h3 class="font--title-2 text-info mb-8">{{ indexStore.getHeaders[7].title[indexStore.getSelectedLanguage] }}</h3>
+              <h3 class="font--title-2 text-info mb-8">{{ getHeadersByIndex(7) }}</h3>
               <p
                 v-for="contactDetail in indexStore.getContactDetails"
                 :key="contactDetail.id"
@@ -125,6 +125,7 @@ import { useToast } from "vue-toastification";
 import {useIndexStore} from "@/stores/index";
 import {useGoTo} from "vuetify";
 import ProjectCard from "@/components/ProjectCard.vue";
+import router from "@/router";
 const goTo = useGoTo()
 const route = useRoute()
 const indexStore = useIndexStore();
@@ -133,16 +134,14 @@ const query = computed(() => route.query);
 
 const toast = useToast();
 
-watch(query,(newValue) => {
-  if (newValue?.block != null && document.getElementById(newValue?.block)) {
-    document.getElementById(newValue?.block).scrollIntoView({
-      behavior: 'smooth'
-    });
+const getHeadersByIndex = (index) => (indexStore.getHeaders?.[index]?.title?.[indexStore?.getSelectedLanguage] ?? "");
+
+const onIntersect = (isIntersecting, entries) => {
+  const itemId = entries[0]?.target?.["__vnode"]?.el?.id
+  if (isIntersecting && itemId != null) {
+    router.push({query: {block: itemId}})
   }
-},
-  {
-    immediate: true
-  })
+}
 </script>
 
 <style>
