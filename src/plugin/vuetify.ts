@@ -16,7 +16,8 @@ const lightTheme: ThemeDefinition = {
     title: "#4B413C",
     icon: "#818181",
     secondary: "#6B6B6B",
-    medal: "#FFD31F"
+    medal: "#FFD31F",
+    success: "#157515"
   },
 };
 
@@ -32,7 +33,8 @@ const darkTheme: ThemeDefinition = {
     title: "#FFFFFF",
     icon: "#DCDCDC",
     secondary: "#999999",
-    medal: "#FFD31F"
+    medal: "#FFD31F",
+    success: "#157515"
   },
 };
 
@@ -48,7 +50,8 @@ const orangeTheme: ThemeDefinition = {
     title: "#FFFFFF",
     icon: "#FFFFFF",
     secondary: "#FFFFFF",
-    medal: "#FFFFFF"
+    medal: "#FFFFFF",
+    success: "#157515"
   },
 };
 
@@ -64,7 +67,8 @@ const yellowTheme: ThemeDefinition = {
     title: "#FFFFFF",
     icon: "#FFFFFF",
     secondary: "#FFFFFF",
-    medal: "#FFFFFF"
+    medal: "#FFFFFF",
+    success: "#157515"
   },
 };
 

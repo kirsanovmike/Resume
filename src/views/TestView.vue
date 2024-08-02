@@ -98,7 +98,7 @@
                 />
                 <v-btn
                   class="mt-2 button--primary"
-                  @click="toast.success('Эта форма пока не работает!')"
+                  @click="toast.error('Эта форма пока не работает!')"
                   type="submit"
                   block
                 >Submit</v-btn>
