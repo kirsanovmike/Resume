@@ -4,13 +4,44 @@
     <meta charset="UTF-8">
     <link rel="icon" href="/Resume/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="/Resume/manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Резюме">
+    <meta name="apple-mobile-web-app-title" content="Резюме">
+    <meta name="theme-color" content="#317EFB"/>
+    <meta name="background_color" content="#317EFB"/>
+    <meta name="msapplication-starturl" content="/">
     <title>Vite App</title>
-    <script type="module" crossorigin src="/Resume/assets/index-Cqjdx5r9.js"></script>
-    <link rel="stylesheet" crossorigin href="/Resume/assets/index-BwI1xBaL.css">
+    <script type="module" crossorigin src="/Resume/assets/index-D91A6pOu.js"></script>
+    <link rel="stylesheet" crossorigin href="/Resume/assets/index-Ci06wKJT.css">
   </head>
   <body>
     <div id="app"></div>
-    <canvas id="animation" class="animation"></canvas>
+    <canvas id="animation" class="animation"></canvas>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/1.0.0/anime.min.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+       window.addEventListener("load", function() {  
+         navigator.serviceWorker.register("/typescript-vue3/sw.js").then(
+           function(registration) {
+             // Registration was successful
+             console.log("ServiceWorker registration successful with scope: ", registration.scope); },
+           function(err) {
+             // registration failed :(
+             console.log("ServiceWorker registration failed: ", err);
+           });
+       });
+        window.addEventListener('beforeinstallprompt', (e) => {
+          // Prevent Chrome 67 and earlier from automatically showing the prompt
+          e.preventDefault();
+          // Stash the event so it can be triggered later.
+          deferredPrompt = e;
+          // Update UI notify the user they can add to home screen
+          btnAdd.style.display = 'block';
+        });
+      
+      }
+    </script>
   </body>
 </html>
