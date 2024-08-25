@@ -4,7 +4,7 @@
       <v-spacer />
       <v-col v-if="indexStore.getMenu && indexStore.getMenu[0] != null" cols="10" id="parent-container">
         <!-- hello -->
-        <div :id="indexStore.getMenu[0].id" v-intersect="onIntersect">
+        <div :id="indexStore.getMenu[0].id" :class="{ 'cv-block':  mdAndUp}" v-intersect="onIntersect">
           <section class="pt-14 pb-15 section-margin">
             <about-info
               :data="indexStore.getAbout"
@@ -14,38 +14,42 @@
         </div>
         <!-- /hello -->
         <!-- skills -->
-        <section class="pt-10 pb-15 section-margin">
-          <header-card :title="getHeadersByIndex(0)" />
-          <v-row :id="indexStore.getMenu[1].id" v-intersect="onIntersect">
-            <v-spacer />
-            <v-col cols="9" class="d-flex flex-wrap">
-              <skill
-                v-for="skill in indexStore.getSkills"
-                :key="skill.id"
-                :skill="skill"
-              />
-            </v-col>
-            <v-spacer />
-          </v-row>
-        </section>
+        <div :id="indexStore.getMenu[1].id" :class="{ 'cv-block':  mdAndUp}" v-intersect="onIntersect">
+          <section class="pt-10 pb-15 section-margin">
+            <header-card :title="getHeadersByIndex(0)" />
+            <v-row>
+              <v-spacer />
+              <v-col cols="12" class="d-flex flex-wrap justify-center">
+                <skill
+                  v-for="skill in indexStore.getSkills"
+                  :key="skill.id"
+                  :skill="skill"
+                />
+              </v-col>
+              <v-spacer />
+            </v-row>
+          </section>
+        </div>
         <!-- /skills -->
         <!-- experience -->
-        <section class="pt-10 pb-15 section-margin" :id="indexStore.getMenu[2].id" v-intersect="onIntersect">
-          <div class="d-flex justify-center">
-            <header-card :title="getHeadersByIndex(1)" />
-          </div>
-          <h3 class="font--title-2 text-center mt-10 mb-6 text-info">{{ getHeadersByIndex(2) }}</h3>
-          <experience-panels :items="indexStore.getEducationExperience"/>
-          <h3 class="font--title-2 text-center mt-10 mb-6 text-info">{{ getHeadersByIndex(3) }}</h3>
-          <experience-panels :items="indexStore.getWorkExperience"/>
-          <h3 class="font--title-2 text-center mt-10 mb-6 text-info">{{ getHeadersByIndex(4) }}</h3>
-          <experience-panels :items="indexStore.getCoursesExperience"/>
-        </section>
+        <div :class="{ 'cv-block':  mdAndUp}" :id="indexStore.getMenu[2].id" v-intersect="onIntersect">
+          <section class="pt-10 pb-15 section-margin">
+            <div class="d-flex justify-center">
+              <header-card :title="getHeadersByIndex(1)" />
+            </div>
+            <h3 class="font--title-2 text-center mt-10 mb-6 text-info">{{ getHeadersByIndex(2) }}</h3>
+            <experience-panels :items="indexStore.getEducationExperience"/>
+            <h3 class="font--title-2 text-center mt-10 mb-6 text-info">{{ getHeadersByIndex(3) }}</h3>
+            <experience-panels :items="indexStore.getWorkExperience"/>
+            <h3 class="font--title-2 text-center mt-10 mb-6 text-info">{{ getHeadersByIndex(4) }}</h3>
+            <experience-panels :items="indexStore.getCoursesExperience"/>
+          </section>
+        </div>
         <!-- /experience -->
         <!-- projects -->
         <section :id="indexStore.getMenu[3].id" class="pt-10 pb-15 section-margin" v-intersect="onIntersect">
           <header-card :title="getHeadersByIndex(5)" />
-          <v-row>
+          <v-row class="d-flex justify-center">
             <v-col
               v-for="project in indexStore.getProjects"
               :key="project.id"
@@ -63,9 +67,10 @@
         </section>
         <!-- /projects -->
         <!-- contact -->
-        <section :id="indexStore.getMenu[4].id" class="pt-10 pb-15" v-intersect="onIntersect">
+        <div :class="{ 'cv-block':  mdAndUp}" :id="indexStore.getMenu[4].id" v-intersect="onIntersect">
+          <section class="pt-10 pb-15">
           <v-row>
-            <v-col cols="6">
+            <v-col cols="12" md="6">
               <div class="d-flex">
                 <header-card :title="getHeadersByIndex(6)" class="mb-8" />
               </div>
@@ -85,7 +90,7 @@
               </p>
             
             </v-col>
-            <v-col cols="6">
+            <v-col cols="12" md="6">
               <v-form fast-fail @submit.prevent>
                 <v-text-field
                   label="First name"
@@ -106,6 +111,7 @@
             </v-col>
           </v-row>
         </section>
+        </div>
         <!-- /contact -->
       </v-col>
       <v-spacer />
@@ -129,6 +135,9 @@ import router from "@/router";
 const goTo = useGoTo()
 const route = useRoute()
 const indexStore = useIndexStore();
+import { useDisplay } from 'vuetify'
+
+const { mdAndUp } = useDisplay()
 
 const query = computed(() => route.query);
 
@@ -163,13 +172,18 @@ const onIntersect = (isIntersecting, entries) => {
   font-size: 45px
 }
 
-.section-margin {
-  margin-bottom: 250px;
-}
-
 .project-card--img {
   max-width: 399px;
 }
 
+.section-margin {
+  width: 100%;
+}
 
+.cv-block {
+  height: 100vh;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
 </style>

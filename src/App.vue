@@ -28,14 +28,14 @@
     </v-container>
     <!-- Системный навбар -->
     <v-app-bar
-      class="background"
+      class="background cv-app-bar"
       elevation="0"
     >
       <v-container fluid>
         <v-row>
           <v-spacer/>
-          <v-col cols="10">
-            <nav-list :items="indexStore.getMenu" @selectMenuOption="goToElem($event)"/>
+          <v-col cols="12" md="10">
+            <nav-list style="flex-wrap: wrap" :items="indexStore.getMenu" @selectMenuOption="goToElem($event)"/>
             <!-- <nav-list :items="links" /> -->
           </v-col>
           <v-spacer/>
@@ -177,9 +177,13 @@ useAnimationExplosion(themeCounter)
 </script>
 
 <style lang="scss">
-.v-app-bar.v-toolbar {
+.v-app-bar.cv-app-bar.v-toolbar {
   position: sticky !important;
   top: 0;
+
+  .v-toolbar__content {
+    height: auto !important;
+  }
 }
 #animation {
   position: fixed;

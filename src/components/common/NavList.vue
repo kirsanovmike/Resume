@@ -5,7 +5,7 @@
       :key="item.id"
       :title="item.name[selectedLanguage]"
       :value="item.href"
-      class="label mr-8 text-info"
+      class="label mr-0 text-info"
       :class="{'selected-item': selectedId === item.id}"
       style="cursor: pointer"
       @click.stop="$emit('selectMenuOption', item.id)"

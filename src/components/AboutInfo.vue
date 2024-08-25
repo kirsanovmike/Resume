@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col cols="2" class="d-flex">
+    <v-col cols="12" md="4" lg="3" class="d-flex">
       <div style="width: 260px; min-width: 260px;">
         <img
           class="image--style-round"
@@ -8,7 +8,7 @@
         >
       </div>
     </v-col>
-    <v-col cols="10" class="pl-6">
+    <v-col cols="12" md="8" lg="9" class="pl-6">
       <h1 class="font--large-title info--text">{{ name}}</h1>
       <h2 class="font--title-2 font-italic mb-6 info--text">{{ position }}</h2>
       <social-bar :class="{ 'fixed-middle-right': !mdAndDown }" :column="!mdAndDown" :links="links" />
