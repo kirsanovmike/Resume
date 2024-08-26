@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex align-center">
+  <div class="d-flex align-center" :class="{'justify-center': mdAndDown}">
     <v-list-item
       v-for="item in items"
       :key="item.id"
@@ -18,6 +18,9 @@ import {ref, computed, watch} from "vue";
 import {useIndexStore} from "@/stores";
 import {useRoute} from "vue-router";
 const indexStore = useIndexStore();
+import { useDisplay } from 'vuetify'
+
+const { mdAndDown } = useDisplay()
 
 interface ListElem {
   id: string,

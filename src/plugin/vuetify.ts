@@ -17,7 +17,8 @@ const lightTheme: ThemeDefinition = {
     icon: "#818181",
     secondary: "#6B6B6B",
     medal: "#FFD31F",
-    success: "#157515"
+    success: "#157515",
+    textfield: "#BAAED0",
   },
 };
 
@@ -34,7 +35,8 @@ const darkTheme: ThemeDefinition = {
     icon: "#DCDCDC",
     secondary: "#999999",
     medal: "#FFD31F",
-    success: "#157515"
+    success: "#157515",
+    textfield: "#BAAED0",
   },
 };
 
@@ -51,7 +53,8 @@ const orangeTheme: ThemeDefinition = {
     icon: "#FFFFFF",
     secondary: "#FFFFFF",
     medal: "#FFFFFF",
-    success: "#157515"
+    success: "#157515",
+    textfield: "#999999",
   },
 };
 
@@ -68,7 +71,8 @@ const yellowTheme: ThemeDefinition = {
     icon: "#FFFFFF",
     secondary: "#FFFFFF",
     medal: "#FFFFFF",
-    success: "#157515"
+    success: "#157515",
+    textfield: "#999999",
   },
 };
 

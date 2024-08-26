@@ -1,4 +1,5 @@
 import './assets/main.css'
+import './assets/styles/index.scss'
 import "@/assets/global.scss"
 import { createApp } from 'vue'
 

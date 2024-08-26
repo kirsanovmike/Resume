@@ -93,12 +93,15 @@
             <v-col cols="12" md="6">
               <v-form fast-fail @submit.prevent>
                 <v-text-field
+                  class="cv-input"
                   label="First name"
                 />
                 <v-text-field
+                  class="cv-input"
                   label="Last name"
                 />
                 <v-text-field
+                  class="cv-input"
                   label="Last name"
                 />
                 <v-btn
@@ -181,8 +184,8 @@ const onIntersect = (isIntersecting, entries) => {
 }
 
 .cv-block {
-  height: 100vh;
-  margin-top: 10px;
+  //height: 100vh;
+  //margin-top: 10px;
   display: flex;
   align-items: center;
 }
