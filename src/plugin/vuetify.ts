@@ -8,6 +8,7 @@ const lightTheme: ThemeDefinition = {
   dark: false,
   colors: {
     background: "#FFFFFF",
+    backgroundlight: "#FFFFFF",
     surface: "#F9F9F7",
     info: "#3C3232",
     warning: "#F15E2F",
@@ -19,6 +20,7 @@ const lightTheme: ThemeDefinition = {
     medal: "#FFD31F",
     success: "#157515",
     textfield: "#BAAED0",
+    abouttitle: "#000000",
   },
 };
 
@@ -26,6 +28,7 @@ const darkTheme: ThemeDefinition = {
   dark: true,
   colors: {
     background: "#2C2735",
+    backgroundlight: "#F9F9F9",
     surface: "#302A3B",
     info: "#DCDCDC",
     warning: "#F15E2F",
@@ -37,6 +40,7 @@ const darkTheme: ThemeDefinition = {
     medal: "#FFD31F",
     success: "#157515",
     textfield: "#BAAED0",
+    abouttitle: "#000000",
   },
 };
 
@@ -44,6 +48,7 @@ const orangeTheme: ThemeDefinition = {
   dark: false,
   colors: {
     background: "#FF6138",
+    backgroundlight: "#FFFFFF",
     surface: "#FF8262",
     info: "#FFFFFF",
     warning: "#F15E2F",
@@ -55,6 +60,7 @@ const orangeTheme: ThemeDefinition = {
     medal: "#FFFFFF",
     success: "#157515",
     textfield: "#999999",
+    abouttitle: "#000000",
   },
 };
 
@@ -62,6 +68,7 @@ const yellowTheme: ThemeDefinition = {
   dark: false,
   colors: {
     background: "#FFBA48",
+    backgroundlight: "#FFFFFF",
     surface: "#FFC35E",
     info: "#FFFFFF",
     warning: "#FFFFFF",
@@ -73,6 +80,7 @@ const yellowTheme: ThemeDefinition = {
     medal: "#FFFFFF",
     success: "#157515",
     textfield: "#999999",
+    abouttitle: "#000000",
   },
 };
 

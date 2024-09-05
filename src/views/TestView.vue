@@ -67,8 +67,8 @@
         </section>
         <!-- /projects -->
         <!-- contact -->
-        <div :class="{ 'cv-block':  mdAndUp}" :id="indexStore.getMenu[4].id" v-intersect="onIntersect">
-          <section class="pt-10 pb-15">
+        <div style="width: 100%;" :class="{ 'cv-block':  mdAndUp}" :id="indexStore.getMenu[4].id" v-intersect="onIntersect">
+          <section class="pt-10 pb-15" style="width: 100%">
           <v-row>
             <v-col cols="12" md="6">
               <div class="d-flex">
@@ -90,27 +90,8 @@
               </p>
             
             </v-col>
-            <v-col cols="12" md="6">
-              <v-form fast-fail @submit.prevent>
-                <v-text-field
-                  class="cv-input"
-                  label="First name"
-                />
-                <v-text-field
-                  class="cv-input"
-                  label="Last name"
-                />
-                <v-text-field
-                  class="cv-input"
-                  label="Last name"
-                />
-                <v-btn
-                  class="mt-2 button--primary"
-                  @click="toast.error('Эта форма пока не работает!')"
-                  type="submit"
-                  block
-                >Submit</v-btn>
-              </v-form>
+            <v-col cols="12" md="6" class="pt-12">
+              <contact-form class="mt-12" />
             </v-col>
           </v-row>
         </section>
@@ -139,6 +120,7 @@ const goTo = useGoTo()
 const route = useRoute()
 const indexStore = useIndexStore();
 import { useDisplay } from 'vuetify'
+import ContactForm from "@/components/ContactForm.vue";
 
 const { mdAndUp } = useDisplay()
 
