@@ -1,0 +1,31 @@
+.cv-input.v-input.v-text-field {
+  .v-field--variant-filled .v-field__overlay {
+    background: transparent;
+    opacity: 0;
+  }
+
+  .v-label.v-field-label.v-field-label--floating {
+    font-family: Mulish;
+    font-size: 24px !important;
+    font-weight: 400;
+    line-height: 30.12px;
+    text-align: left;
+    color: rgb(var(--v-theme-info));
+    margin-top: -20px;
+    visibility: inherit !important;
+    margin-left: 0;
+  }
+
+  .v-label.v-field-label.v-field-label--floating + .v-label.v-field-label {
+    display: none;
+    visibility: hidden;
+  }
+
+  .v-label.v-field-label.v-field-label--floating + .v-label.v-field-label + input {
+    padding-left: 8px;
+  }
+
+  .v-field__outline::before {
+    border-color: rgb(var(--v-theme-textfield));
+  }
+}
