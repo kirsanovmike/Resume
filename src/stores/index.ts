@@ -118,6 +118,7 @@ export const useIndexStore = defineStore('index', () => {
           detailTitle: doc.data().detailTitle,
           buttonText: doc.data().buttonText,
           name: doc.data().name,
+          items: doc.data().items,
           position: doc.data().position,
           textAbout: doc.data().textAbout,
           detailTextAbout: doc.data().detailTextAbout,

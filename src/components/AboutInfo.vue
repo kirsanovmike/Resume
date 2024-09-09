@@ -47,15 +47,15 @@
                     <p class="textfield">{{ location }}</p>
                   </div>
                   <p
-                    v-for="i in 5"
+                    v-for="i in items"
                     :key="i"
                     class="font-text my-2"
                   >
                     <span class="textfield">
-                      Возраст
+                      {{ i.param[props.language] }}: 
                     </span>
                     <span class="abouttitle">
-                      {{i}}
+                      {{ i.value[props.language] }}
                     </span>
                   </p>
                   <p class="abouttitle mt-9">
@@ -159,6 +159,9 @@ const detailTextAbout = computed(() => {
 })
 const buttonText = computed(() => {
   return props.data?.buttonText?.[props.language] ?? ''
+})
+const items = computed(() => {
+  return props.data?.items
 })
 
 const links = {
