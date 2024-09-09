@@ -68,8 +68,8 @@
                   <v-card-title>
                     <div class="d-flex justify-space-between">
                       <div>
-                        <p class="title backgroundlight " style="margin-top: 56px; line-height: 48px;">Contact Form</p>
-                        <p class="description backgroundlight mt-6">Have a project? Let me know!</p>
+                        <p class="title abouttitleright " style="margin-top: 56px; line-height: 48px;">Contact Form</p>
+                        <p class="description abouttitleright mt-6">Have a project? Let me know!</p>
                       </div>
                       <v-btn v-if="!mdAndDown" icon @click="isActive.value = false">
                         <font-awesome-icon
@@ -101,8 +101,8 @@
                   </v-card-title>
                   <div style="height: 100%; width: 100%;" class="d-flex align-center justify-center flex-column">
                     <img alt="" class="project-card--img" src="@/assets/img/OK.svg">
-                    <p class="title backgroundlight" style="margin-top: 56px; line-height: 48px;">Success</p>
-                    <p class="backgroundlight mt-6">{{ props.labels[4].title }}</p>
+                    <p class="title abouttitleright" style="margin-top: 56px; line-height: 48px;">Success</p>
+                    <p class="abouttitleright mt-6">{{ props.labels[4].title }}</p>
                   </div>
                 </template>
               </v-col>
@@ -234,8 +234,8 @@ const submit = (event) => {
   padding-left: 56px;
 }
 
-.backgroundlight {
-  color: rgb(var(--v-theme-backgroundlight));
+.abouttitleright {
+  color: rgb(var(--v-theme-abouttitleright));
 }
 
 .left-col-about {
