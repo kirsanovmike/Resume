@@ -1,32 +1,59 @@
 <script setup lang="ts">
 import { useToast } from "vue-toastification";
+import {ref} from "vue"
 
 const toast = useToast();
 
-const props = withDefaults(defineProps<{btnWidth: string}>(), {
-  btnWidth: "100%"
+const form = ref({
+  name: "",
+  email: "",
+  message: "",
 })
-const emit = defineEmits(['sumbit'])
+
+interface Label {
+  id: string,
+  title: string,
+}
+
+interface Props {
+  btnWidth: string,
+  labels: Label[]
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  btnWidth: "100%",
+  labels: () => []
+})
+const emit = defineEmits(['submit'])
 
 const sumbit = () => {
-  toast.error('Эта форма пока не работает!')
-  emit('sumbit')
+  emit('submit', {
+    name: form.value.name,
+    email: form.value.email,
+    message: form.value.message
+  })
+  form.value.name = ""
+  form.value.email = ""
+  form.value.message = ""
 }
 </script>
 
 <template>
   <v-form fast-fail @submit.prevent>
     <v-text-field
+      v-model="form.name"
       class="cv-input"
-      label="Name"
+      :label="props.labels[0].title"
     />
     <v-text-field
+      v-model="form.email"
       class="cv-input"
-      label="E-mail"
+      :label="props.labels[1].title"
     />
     <v-textarea
+      v-model="form.message"
       class="cv-input"
-      label="Message"
+      :label="props.labels[2].title"
     />
     <div :style="`width: ${props.btnWidth}px`">
       <v-btn
@@ -34,7 +61,7 @@ const sumbit = () => {
         @click="sumbit"
         type="submit"
         block
-      >Submit</v-btn>
+      >{{ props.labels[3].title }}</v-btn>
     </div>
   </v-form>
 </template>

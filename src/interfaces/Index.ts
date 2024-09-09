@@ -103,3 +103,11 @@ export interface HeaderItem {
     en: string,
   },
 }
+
+export interface LabelItem {
+  id: number,
+  title: {
+    ru: string,
+    en: string,
+  },
+}

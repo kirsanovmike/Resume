@@ -67,6 +67,7 @@ import {computed, type ComputedRef, onBeforeMount, ref, shallowRef, watch, onMou
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 import {useUserStore} from "@/stores/user";
 import {useIndexStore} from "@/stores/index";
+import {useStoreLetters} from "@/stores/frontLettersStore";
 import {getUserId} from "@/api/user";
 import {useGoTo, useTheme} from "vuetify";
 import ChangeLanguage from "@/components/ChangeLanguage.vue";
@@ -78,8 +79,10 @@ import {useRoute} from "vue-router";
 const theme = useTheme();
 const userStore = useUserStore();
 const indexStore = useIndexStore();
+const lettersStore = useStoreLetters();
 const {initDB, loadMenu, loadlanguages, loadEducationExperience, setSelectedLanguage,
-  loadAbout, loadSkills, loadWorkExperience, loadCoursesExperience, loadContactDetails, loadProjects, loadHeaders} = indexStore;
+  loadAbout, loadSkills, loadWorkExperience, loadCoursesExperience, loadContactDetails, loadProjects, loadHeaders, loadLabels} = indexStore;
+const {init} = lettersStore
 
 const {fetchData} = userStore;
 const statusUserId = computed(() =>
@@ -97,6 +100,7 @@ const selectedLanguage = computed({
 
 onBeforeMount(async () => {
   initDB()
+  init()
   fetchData({
     method: getUserId,
     model: "userId",
@@ -112,6 +116,7 @@ onBeforeMount(async () => {
   loadContactDetails()
   loadProjects()
   loadHeaders()
+  loadLabels()
 })
 
 let themeCounter = ref(0);

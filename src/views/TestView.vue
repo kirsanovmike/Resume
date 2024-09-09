@@ -9,6 +9,7 @@
             <about-info
               :data="indexStore.getAbout"
               :language="indexStore.getSelectedLanguage"
+              :labels="indexStore.getLabels"
             />
           </section>
         </div>
@@ -91,7 +92,11 @@
             
             </v-col>
             <v-col cols="12" md="6" class="pt-12">
-              <contact-form class="mt-12" />
+              <contact-form
+                class="mt-12"
+                :labels="indexStore.getLabels"
+                @submit="submit"
+              />
             </v-col>
           </v-row>
         </section>
@@ -113,12 +118,14 @@ import ExperiencePanels from "@/components/common/ExperiencePanels.vue";
 import { useToast } from "vue-toastification";
 
 import {useIndexStore} from "@/stores/index";
+import {useStoreLetters} from "@/stores/frontLettersStore";
 import {useGoTo} from "vuetify";
 import ProjectCard from "@/components/ProjectCard.vue";
 import router from "@/router";
 const goTo = useGoTo()
 const route = useRoute()
 const indexStore = useIndexStore();
+const letersStore = useStoreLetters();
 import { useDisplay } from 'vuetify'
 import ContactForm from "@/components/ContactForm.vue";
 
@@ -129,6 +136,11 @@ const query = computed(() => route.query);
 const toast = useToast();
 
 const getHeadersByIndex = (index) => (indexStore.getHeaders?.[index]?.title?.[indexStore?.getSelectedLanguage] ?? "");
+
+const submit = (event) => {
+  letersStore.addLetter(event)
+  toast.success(indexStore.getLabels[4].title)
+}
 
 const onIntersect = (isIntersecting, entries) => {
   const itemId = entries[0]?.target?.["__vnode"]?.el?.id

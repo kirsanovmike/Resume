@@ -1,8 +1,8 @@
 import { defineStore } from "pinia"
-import { collection,addDoc } from "firebase/firestore"
+import { collection, addDoc } from "firebase/firestore"
 import { db } from "@/config/firebase"
 
-let lettersCollectionRef
+let lettersCollectionRef: any = null
 
 export const useStoreLetters = defineStore("storeLetters", {
   state: () => {
@@ -15,13 +15,12 @@ export const useStoreLetters = defineStore("storeLetters", {
       lettersCollectionRef = collection(db, "letters")
     },
     /* Добавление сообщения */
-    async addLetter({authorName, authorTelephoneNumber, authorEmail, authorMessage}) {
+    async addLetter({name, email, message}) {
       await addDoc(lettersCollectionRef, {
         date: new Date().getTime().toString(),
-        authorName,
-        authorTelephoneNumber,
-        authorEmail,
-        authorMessage,
+        authorName: name,
+        authorEmail: email,
+        authorMessage: message,
         isRead: false,
       })
     },

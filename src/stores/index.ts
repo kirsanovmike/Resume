@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import { collection, onSnapshot, query, orderBy, updateDoc, doc, DocumentReference, type DocumentData} from "firebase/firestore"
 import { db } from "@/config/firebase"
 import {type MenuItem, type LanguageItem, type AboutItem, type SkillItem, type WorkExperienceItem,
-  type ContactDetailsItem, type EducationExperienceItem, type CoursesExperienceItem, type HeaderItem} from "@/interfaces/Index"
+  type ContactDetailsItem, type EducationExperienceItem, type CoursesExperienceItem, type HeaderItem, type LabelItem} from "@/interfaces/Index"
 
 let menuCollectionQuery: any = null
 let menuCollectionRef: any = null
@@ -35,6 +35,9 @@ let projectsCollectionRef: any = null
 let headersCollectionQuery: any = null
 let headersCollectionRef: any = null
 
+let labelsCollectionQuery: any = null
+let labelsCollectionRef: any = null
+
 export const useIndexStore = defineStore('index', () => {
   const languages = ref<LanguageItem []>([])
   const menu = ref<MenuItem []>([])
@@ -46,6 +49,7 @@ export const useIndexStore = defineStore('index', () => {
   const contactDetails = ref<ContactDetailsItem []>([])
   const projects = ref<ProjectItem []>([])
   const headers = ref<HeaderItem []>([])
+  const labels = ref<LabelItem []>([])
 
   let selectedLanguage = ref<string>("ru");
 
@@ -70,6 +74,8 @@ export const useIndexStore = defineStore('index', () => {
     projectsCollectionQuery = query(projectsCollectionRef)
     headersCollectionRef = collection(db, "headers")
     headersCollectionQuery = query(headersCollectionRef)
+    labelsCollectionRef = collection(db, "labels")
+    labelsCollectionQuery = query(labelsCollectionRef)
   }
 
   async function loadMenu() {
@@ -109,10 +115,13 @@ export const useIndexStore = defineStore('index', () => {
       querySnapshot.forEach((doc) => {
         const aboutItem = {
           id: doc.id,
+          detailTitle: doc.data().detailTitle,
           buttonText: doc.data().buttonText,
           name: doc.data().name,
           position: doc.data().position,
-          textAbout: doc.data().textAbout
+          textAbout: doc.data().textAbout,
+          detailTextAbout: doc.data().detailTextAbout,
+          location: doc.data().location,
         }
         response.push(aboutItem)
       })
@@ -256,6 +265,22 @@ export const useIndexStore = defineStore('index', () => {
     })
   }
 
+  async function loadLabels() {
+    onSnapshot(labelsCollectionQuery, (querySnapshot) => {
+      const responceHeaders: any[] = []
+      querySnapshot.forEach((doc) => {
+        const labelsItem = {
+          id: doc.id,
+          title: doc.data().title,
+        }
+        responceHeaders.push(labelsItem)
+      })
+      labels.value = [...responceHeaders]
+    }, (error: { message: any }) => {
+      console.log("error.message: ", error.message)
+    })
+  }
+
   function setSelectedLanguage(value: string) {
     selectedLanguage.value = value
   }
@@ -288,9 +313,13 @@ export const useIndexStore = defineStore('index', () => {
     description: el.description[selectedLanguage.value],
   })))
   const getHeaders = computed(() => headers.value)
+  const getLabels = computed(() => labels.value.map(el => ({
+    ...el,
+    title: el.title[selectedLanguage.value],
+  })))
 
 
   return { menu, initDB, loadMenu, loadlanguages, loadSkills, loadWorkExperience, loadEducationExperience, loadCoursesExperience, loadContactDetails,
-    loadProjects, loadHeaders, getMenu, getLanguages, loadAbout, getAbout, getSelectedLanguage, setSelectedLanguage,
-    getSkills, getWorkExperience, getEducationExperience, getCoursesExperience, getContactDetails, getProjects, getHeaders }
+    loadProjects, loadHeaders, loadLabels, getMenu, getLanguages, loadAbout, getAbout, getSelectedLanguage, setSelectedLanguage,
+    getSkills, getWorkExperience, getEducationExperience, getCoursesExperience, getContactDetails, getProjects, getHeaders, getLabels }
 })

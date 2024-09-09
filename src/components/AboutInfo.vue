@@ -27,7 +27,7 @@
               <v-col lg="6" md="12" sm="12" class="left-col-about">
                 <v-card-title>
                   <div class="d-flex justify-space-between">
-                    <p class="title abouttitle" style="margin-top: 56px">About Me</p>
+                    <p class="title abouttitle" style="margin-top: 56px">{{ detailTitle }}</p>
                     <v-btn v-if="mdAndDown" icon @click="isActive.value = false">
                       <font-awesome-icon
                         :icon="['fas', 'xmark']"
@@ -44,7 +44,7 @@
                       class="textfield mr-2"
                       style="min-width: 25px; min-height: 25px"
                     />
-                    <p class="textfield">Moscow</p>
+                    <p class="textfield">{{ location }}</p>
                   </div>
                   <p
                     v-for="i in 5"
@@ -59,7 +59,7 @@
                     </span>
                   </p>
                   <p class="abouttitle mt-9">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat
+                    {{ detailTextAbout }}
                   </p>
                 </v-card-text>
               </v-col>
@@ -81,7 +81,12 @@
                     </div>
                   </v-card-title>
                   <v-card-text style="padding-right: 56px;">
-                    <contact-form class="mt-12 pt-12" :btn-width="200" @sumbit="sumbit"/>
+                    <contact-form
+                      class="mt-12 pt-12"
+                      :btn-width="200"
+                      :labels="props.labels"
+                      @submit="submit"
+                    />
                   </v-card-text>
                 </template>
                 <template v-else>
@@ -97,7 +102,7 @@
                   <div style="height: 100%; width: 100%;" class="d-flex align-center justify-center flex-column">
                     <img alt="" class="project-card--img" src="@/assets/img/OK.svg">
                     <p class="title backgroundlight" style="margin-top: 56px; line-height: 48px;">Success</p>
-                    <p class="backgroundlight mt-6">Your message was sent successfully!</p>
+                    <p class="backgroundlight mt-6">{{ props.labels[4].title }}</p>
                   </div>
                 </template>
               </v-col>
@@ -123,6 +128,10 @@ const props = defineProps({
     default: () => {
     }
   },
+  labels: {
+    type: Array,
+    default: () => []
+  },
   language: {
     type: String,
     required: true
@@ -130,7 +139,9 @@ const props = defineProps({
 })
 
 const sentStatus = ref(null);
-
+const detailTitle = computed(() => {
+  return props.data?.detailTitle?.[props.language] ?? ''
+})
 const name = computed(() => {
   return props.data?.name?.[props.language] ?? ''
 })
@@ -139,6 +150,12 @@ const position = computed(() => {
 })
 const textAbout = computed(() => {
   return props.data?.textAbout?.[props.language] ?? ''
+})
+const location = computed(() => {
+  return props.data?.location?.[props.language] ?? ''
+})
+const detailTextAbout = computed(() => {
+  return props.data?.detailTextAbout?.[props.language] ?? ''
 })
 const buttonText = computed(() => {
   return props.data?.buttonText?.[props.language] ?? ''
@@ -153,11 +170,11 @@ const links = {
   linkedin: 'https://linkedin.com/kirsanovmike'
 }
 
-const sumbit = () => {
-  sentStatus.value = 200;
-  setTimeout(() => {
-    sentStatus.value = null;
-  }, 1000)
+const emit = defineEmits(['submit'])
+
+const submit = (event) => {
+  sentStatus.value = 200
+  emit('submit', event)
 }
 </script>
 
