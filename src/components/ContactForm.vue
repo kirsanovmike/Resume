@@ -43,17 +43,17 @@ const sumbit = () => {
     <v-text-field
       v-model="form.name"
       class="cv-input"
-      :label="props.labels[0].title"
+      :label="props.labels[0] ? props.labels[0].title : ''"
     />
     <v-text-field
       v-model="form.email"
       class="cv-input"
-      :label="props.labels[1].title"
+      :label="props.labels[1] ? props.labels[1].title : ''"
     />
     <v-textarea
       v-model="form.message"
       class="cv-input"
-      :label="props.labels[2].title"
+      :label="props.labels[2] ? props.labels[2].title : ''"
     />
     <div :style="`width: ${props.btnWidth}px`">
       <v-btn
@@ -61,7 +61,7 @@ const sumbit = () => {
         @click="sumbit"
         type="submit"
         block
-      >{{ props.labels[3].title }}</v-btn>
+      >{{ props.labels[3] ? props.labels[3].title : "" }}</v-btn>
     </div>
   </v-form>
 </template>
