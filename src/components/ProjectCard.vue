@@ -1,44 +1,44 @@
 <template>
   <v-dialog max-width="1440">
-    <template #activator="{ props: activatorProps }">
+    <template #activator="{ props: activatorProps, isActive }">
       <v-card
         elevation="0"
-        style="width: 463px; position: relative; cursor: pointer"
+        style="min-width: 350px; width: 463px; cursor: pointer; position: relative"
         v-bind="activatorProps"
       >
         <v-card-text class="pa-8 d-flex align-center justify-center">
           <div class="d-flex flex-column">
-            <img alt="" class="project-card--img" src="@/assets/img/project.svg">
+            <img width="100%" alt="" class="project-card--img" src="@/assets/img/project.svg">
             <div class="project-card--content mt-6">
               <p class="title">{{ project.title }}</p>
               <p class="subtitle mb-0">{{ project.text }}</p>
             </div>
           </div>
         </v-card-text>
-        <font-awesome-icon
-          v-if="project.isMedal"
-          :icon="['fas', 'medal']"
-          class="medal--text"
-          color="medal"
-          style="min-width: 52px; min-height: 52px; position: absolute; top: 0; right: 20px;"
-        />
       </v-card>
+      <font-awesome-icon
+        v-if="project.isMedal && isActive"
+        :icon="['fas', 'medal']"
+        class="medal--text"
+        color="medal"
+        style="min-width: 52px; min-height: 52px; position: absolute; top: 0;"
+      />
     </template>
 
     <template v-slot:default="{ isActive }">
-      <v-card class="pa-10" style="height: 860px; position: relative">
-        <v-card-title>
+      <v-card style="height: 860px; position: relative; overflow: hidden">
+        <v-card-title class="pl-10">
           <div class="d-flex justify-space-between">
-            <p class="title">{{ project.title }}</p>
-            <v-btn icon @click="isActive.value = false">
+            <p class="title pt-10">{{ project.title }}</p>
+            <v-btn class="elevation-0" icon @click="isActive.value = false">
               <font-awesome-icon :icon="['fas', 'xmark']" style="min-width: 52px; min-height: 52px;"
                  class="subtitle"
               />
             </v-btn>
           </div>
         </v-card-title>
-        <v-row>
-          <v-col md="12" sm="12" lg="6">
+        <v-row class="px-10 pt-0 pb-10">
+          <v-col class="pl-0" md="12" sm="12" lg="6">
 
             <v-card-text>
               <p class="description subtitle mb-0">{{ project.description }}</p>
@@ -63,10 +63,11 @@
 
 <script lang="ts" setup>
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import { useDisplay } from 'vuetify'
 
-const { mdAndUp } = useDisplay()
+const { mdAndUp, smAndDown } = useDisplay()
+const {name} = useDisplay()
 
 interface Project {
   title: string,

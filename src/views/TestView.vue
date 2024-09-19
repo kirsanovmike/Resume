@@ -19,7 +19,7 @@
         <div :id="indexStore.getMenu[1].id" :class="{ 'cv-block':  mdAndUp}" v-intersect="onIntersect">
           <section class="pt-10 pb-15 section-margin">
             <header-card :title="getHeadersByIndex(0)" />
-            <v-row>
+            <v-row class="mx-n10">
               <v-spacer />
               <v-col cols="12" class="d-flex flex-wrap justify-center">
                 <skill

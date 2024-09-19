@@ -7,8 +7,8 @@
         <v-col class="d-flex justify-end align-center" cols="10">
           <!-- Скачать резюме -->
           <div class="d-flex align-center ml-8">
-            <font-awesome-icon :icon="['fas', 'chevron-down']" class="text-info"/>
-            <span class="font--callout-2 ml-1 text-info">Download CV</span>
+            <font-awesome-icon :icon="['far', 'file']" class="text-info"/>
+            <span class="font--callout-2 ml-1 text-info" style="cursor:pointer;" @click="openPdf">Open CV</span>
           </div>
           <!-- Смена языка -->
           <change-language
@@ -178,7 +178,10 @@ const toTop = () => {
 
 useAnimationExplosion(themeCounter)
 
-
+const openPdf = () => {
+  const pdfUrl = `${import.meta.env.BASE_URL}files/TrokhovKirill_resume.pdf`;
+  window.open(pdfUrl, '_blank');
+};
 </script>
 
 <style lang="scss">

@@ -2,7 +2,7 @@
   <v-card
     max-width="180"
     elevation="0"
-    class="mx-8 mb-8 skill-card"
+    class="mx-3 my-3 skill-card"
   >
     <v-card-text>
       <div class="d-flex flex-column align-start">

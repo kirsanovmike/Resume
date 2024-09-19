@@ -28,7 +28,7 @@
                 <v-card-title>
                   <div class="d-flex justify-space-between">
                     <p class="title abouttitle" style="margin-top: 56px">{{ detailTitle }}</p>
-                    <v-btn v-if="mdAndDown" icon @click="isActive.value = false">
+                    <v-btn v-if="mdAndDown" class="elevation-0" icon @click="isActive.value = false">
                       <font-awesome-icon
                         :icon="['fas', 'xmark']"
                         class="subtitle"
