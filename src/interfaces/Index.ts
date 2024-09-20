@@ -93,6 +93,7 @@ export interface ProjectItem {
     ru: string,
     en: string,
   },
+  img: string,
   isMedal: boolean,
 }
 
@@ -110,4 +111,9 @@ export interface LabelItem {
     ru: string,
     en: string,
   },
+}
+
+export interface ImageItem {
+  id: string,
+  value: string
 }

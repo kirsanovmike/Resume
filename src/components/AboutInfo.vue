@@ -2,7 +2,7 @@
   <v-row>
     <v-col class="d-flex" cols="12" lg="3" md="4">
       <div style="width: 260px; min-width: 260px">
-        <img class="image--style-round" src="@/assets/img/photo.svg"/>
+        <img class="image--style-round" :src="props.images.find(img => img.id === 'main-photo').value"/>
       </div>
     </v-col>
     <v-col class="pl-6" cols="12" lg="9" md="8">
@@ -68,8 +68,8 @@
                   <v-card-title>
                     <div class="d-flex justify-space-between">
                       <div>
-                        <p class="title abouttitleright " style="margin-top: 56px; line-height: 48px;">Contact Form</p>
-                        <p class="description abouttitleright mt-6">Have a project? Let me know!</p>
+                        <p class="title abouttitleright " style="margin-top: 56px; line-height: 48px;">{{ props.labels[5].title }}</p>
+                        <p class="description abouttitleright mt-6">{{ props.labels[6].title }}</p>
                       </div>
                       <v-btn v-if="!mdAndDown" icon @click="isActive.value = false">
                         <font-awesome-icon
@@ -101,7 +101,7 @@
                   </v-card-title>
                   <div style="height: 100%; width: 100%;" class="d-flex align-center justify-center flex-column">
                     <img alt="" class="project-card--img" src="@/assets/img/OK.svg">
-                    <p class="title abouttitleright" style="margin-top: 56px; line-height: 48px;">Success</p>
+                    <p class="title abouttitleright" style="margin-top: 56px; line-height: 48px;">{{ props.labels[7].title }}</p>
                     <p class="abouttitleright mt-6">{{ props.labels[4].title }}</p>
                   </div>
                 </template>
@@ -135,7 +135,11 @@ const props = defineProps({
   language: {
     type: String,
     required: true
-  }
+  },
+  images: {
+    type: Array,
+    default: () => []
+  },
 })
 
 const sentStatus = ref(null);

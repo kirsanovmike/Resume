@@ -2,7 +2,7 @@ import { ref, computed} from 'vue'
 import { defineStore } from 'pinia'
 import { collection, onSnapshot, query, orderBy, updateDoc, doc, DocumentReference, type DocumentData} from "firebase/firestore"
 import { db } from "@/config/firebase"
-import {type MenuItem, type LanguageItem, type AboutItem, type SkillItem, type WorkExperienceItem,
+import {type MenuItem, type LanguageItem, type AboutItem, type SkillItem, type WorkExperienceItem, type ImageItem,
   type ContactDetailsItem, type EducationExperienceItem, type CoursesExperienceItem, type HeaderItem, type LabelItem} from "@/interfaces/Index"
 
 let menuCollectionQuery: any = null
@@ -38,6 +38,9 @@ let headersCollectionRef: any = null
 let labelsCollectionQuery: any = null
 let labelsCollectionRef: any = null
 
+let imagesCollectionQuery: any = null
+let imagesCollectionRef: any = null
+
 export const useIndexStore = defineStore('index', () => {
   const languages = ref<LanguageItem []>([])
   const menu = ref<MenuItem []>([])
@@ -50,8 +53,9 @@ export const useIndexStore = defineStore('index', () => {
   const projects = ref<ProjectItem []>([])
   const headers = ref<HeaderItem []>([])
   const labels = ref<LabelItem []>([])
+  const images = ref<ImageItem []>([])
 
-  let selectedLanguage = ref<string>("ru");
+  const selectedLanguage = ref<string>("ru");
 
   async function initDB() {
     menuCollectionRef = collection(db, "menu")
@@ -76,6 +80,8 @@ export const useIndexStore = defineStore('index', () => {
     headersCollectionQuery = query(headersCollectionRef)
     labelsCollectionRef = collection(db, "labels")
     labelsCollectionQuery = query(labelsCollectionRef)
+    imagesCollectionRef = collection(db, "images")
+    imagesCollectionQuery = query(imagesCollectionRef)
   }
 
   async function loadMenu() {
@@ -239,6 +245,7 @@ export const useIndexStore = defineStore('index', () => {
           id: doc.id,
           title: doc.data().title,
           text: doc.data().text,
+          img: doc.data().img,
           description: doc.data().description,
           isMedal: doc.data().isMedal,
         }
@@ -282,6 +289,22 @@ export const useIndexStore = defineStore('index', () => {
     })
   }
 
+  async function loadImages() {
+    onSnapshot(imagesCollectionQuery, (querySnapshot) => {
+      const responceHeaders: any[] = []
+      querySnapshot.forEach((doc) => {
+        const imagesItem = {
+          id: doc.id,
+          value: doc.data().value,
+        }
+        responceHeaders.push(imagesItem)
+      })
+      images.value = [...responceHeaders]
+    }, (error: { message: any }) => {
+      console.log("error.message: ", error.message)
+    })
+  }
+
   function setSelectedLanguage(value: string) {
     selectedLanguage.value = value
   }
@@ -318,9 +341,10 @@ export const useIndexStore = defineStore('index', () => {
     ...el,
     title: el.title[selectedLanguage.value],
   })))
+  const getImages = computed(() => images.value)
 
 
   return { menu, initDB, loadMenu, loadlanguages, loadSkills, loadWorkExperience, loadEducationExperience, loadCoursesExperience, loadContactDetails,
-    loadProjects, loadHeaders, loadLabels, getMenu, getLanguages, loadAbout, getAbout, getSelectedLanguage, setSelectedLanguage,
-    getSkills, getWorkExperience, getEducationExperience, getCoursesExperience, getContactDetails, getProjects, getHeaders, getLabels }
+    loadProjects, loadHeaders, loadLabels, getMenu, getLanguages, loadImages, loadAbout, getAbout, getSelectedLanguage, setSelectedLanguage,
+    getSkills, getWorkExperience, getEducationExperience, getCoursesExperience, getContactDetails, getProjects, getHeaders, getLabels, getImages }
 })

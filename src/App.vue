@@ -81,7 +81,7 @@ const userStore = useUserStore();
 const indexStore = useIndexStore();
 const lettersStore = useStoreLetters();
 const {initDB, loadMenu, loadlanguages, loadEducationExperience, setSelectedLanguage,
-  loadAbout, loadSkills, loadWorkExperience, loadCoursesExperience, loadContactDetails, loadProjects, loadHeaders, loadLabels} = indexStore;
+  loadAbout, loadSkills, loadWorkExperience, loadCoursesExperience, loadContactDetails, loadProjects, loadHeaders, loadLabels, loadImages} = indexStore;
 const {init} = lettersStore
 
 const {fetchData} = userStore;
@@ -117,6 +117,7 @@ onBeforeMount(async () => {
   loadProjects()
   loadHeaders()
   loadLabels()
+  loadImages()
 })
 
 let themeCounter = ref(0);

@@ -8,7 +8,7 @@
       >
         <v-card-text class="pa-8 d-flex align-center justify-center">
           <div class="d-flex flex-column">
-            <img width="100%" alt="" class="project-card--img" src="@/assets/img/project.svg">
+            <img width="100%" alt="" class="project-card--img" :src="project.img">
             <div class="project-card--content mt-6">
               <p class="title">{{ project.title }}</p>
               <p class="subtitle mb-0">{{ project.text }}</p>
@@ -45,7 +45,7 @@
             </v-card-text>
           </v-col>
           <v-col class="d-flex align-center justify-center" md="12" sm="12" lg="6">
-            <img alt="" class="project-card--img" src="@/assets/img/project.svg"
+            <img alt="" class="project-card--img" :src="project.img"
                  :style="mdAndUp ? 'min-width: 610px; min-height: 400px;' : 'min-height: 60px;'">
           </v-col>
         </v-row>
@@ -85,6 +85,7 @@ const props = withDefaults(defineProps<Props>(), {
     return {
       title: "Title",
       text: "Text",
+      img: "",
       isMedal: false,
       description: "Lor...",
     }

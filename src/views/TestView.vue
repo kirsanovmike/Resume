@@ -10,6 +10,7 @@
               :data="indexStore.getAbout"
               :language="indexStore.getSelectedLanguage"
               :labels="indexStore.getLabels"
+              :images="indexStore.getImages"
               @submit="submit"
             />
           </section>
