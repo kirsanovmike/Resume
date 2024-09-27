@@ -1,25 +1,21 @@
 <template>
   <div class="d-flex align-center ml-8">
-    <v-menu>
+    <v-menu v-model="isLanguageMenuOpen">
       <template v-slot:activator="{ props }">
-        <div
-          v-bind="props"
-          class="language-active"
-          @click="showLanguageMenu = !showLanguageMenu"
-        >
+        <div v-bind="props" class="language-active">
           <font-awesome-icon
-            :icon="['fas', showLanguageMenu ? 'chevron-up' : 'chevron-down']"
-            class="text-info"
+              :icon="['fas', isLanguageMenuOpen ? 'chevron-up' : 'chevron-down']"
+              class="text-info"
           />
           <span class="font--callout-2 ml-1 text-info">{{ activeLanguage }}</span>
         </div>
       </template>
       <v-list>
         <v-list-item
-          v-for="(language, index) in languages"
-          :key="index"
-          :value="language.id"
-          @click="handlerChangeLanguage(language.id)"
+            v-for="(language, index) in languages"
+            :key="index"
+            :value="language.id"
+            @click="changeLanguage(language.id)"
         >
           <v-list-item-title class="pl-6 font--callout-2">{{ language.name }}</v-list-item-title>
         </v-list-item>
@@ -27,9 +23,10 @@
     </v-menu>
   </div>
 </template>
+
 <script setup>
 import { ref, computed } from 'vue'
-import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 const props = defineProps({
   modelValue: {
@@ -44,16 +41,15 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue'])
 
-const handlerChangeLanguage = (languageId) => {
+const changeLanguage = (languageId) => {
   emit('update:modelValue', languageId)
-  showLanguageMenu = !showLanguageMenu
 }
 
-const activeLanguage = computed(() => {
-  return props.languages.find(language => language.id === props.modelValue)?.name
-})
+const activeLanguage = computed(() =>
+    props.languages.find(language => language.id === props.modelValue)?.name || ''
+)
 
-let showLanguageMenu = ref<Boolean>(false)
+const isLanguageMenuOpen = ref(false)
 </script>
 
 <style>

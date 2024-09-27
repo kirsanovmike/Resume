@@ -2,7 +2,7 @@
   <v-row>
     <v-col class="d-flex" cols="12" lg="3" md="4">
       <div style="width: 260px; min-width: 260px">
-        <img class="image--style-round" :src="props.images.find(img => img.id === 'main-photo').value"/>
+        <img class="image--style-round" :src="props.images.find(img => img.id === 'main-photo')?.value"/>
       </div>
     </v-col>
     <v-col class="pl-6" cols="12" lg="9" md="8">
